@@ -30,7 +30,7 @@
       register: droplet_result
 
     - debug:
-        msg: "IP is {{ droplet_result.droplet.ip_address }}"
+        msg: "IP is {{ droplet_result.results }}"
 
 #     - name: Save the ECR password secret
 #       uses: Skandalik/save-secret@v1.0.0
