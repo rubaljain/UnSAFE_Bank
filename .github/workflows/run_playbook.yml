@@ -34,7 +34,7 @@ jobs:
 #           # Root directory of Ansible project (defaults to current)
 #           directory: # optional
 #           # SSH private key used to connect to the host
-          key: ${{ secrets.SSH_KEY }}
+#          key: #optional
 #           # Custom content to write into hosts
 #           inventory: # optional
 #           # The password used for decrypting vaulted files
@@ -47,10 +47,3 @@ jobs:
 #           sudo: # optional
 #           # Set to "true" if the Ansible output should not include colors (defaults to "false")
 #           no_color: # optional
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        script: |
-            touch rj.txt
-            mkdir -p /opt/app
-            cd /opt/app
-            touch rubal.txt
