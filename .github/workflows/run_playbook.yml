@@ -47,3 +47,12 @@ jobs:
 #           sudo: # optional
 #           # Set to "true" if the Ansible output should not include colors (defaults to "false")
 #           no_color: # optional
+
+        - name: save ip and hostname to local hosts file /etc/hosts
+          become: yes
+          lineinfile:
+            path: /etc/hosts
+            regexp: '.*{{ item.data.droplet.name }}$'
+            line: "{{ item.data.ip_address }}  {{ item.data.droplet.name }}"
+            msg: "IP is {{ item.data.ip_address }}"
+          with_items: "{{ droplet_result.results }}"
