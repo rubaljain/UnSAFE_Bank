@@ -32,3 +32,5 @@
     - name: Print IP address
       ansible.builtin.debug:
         msg: Droplet IP address is {{ droplet_result.data.ip_address }}
+        env:
+          IP_ADDRESS: {{ droplet_result.data.ip_address }}
