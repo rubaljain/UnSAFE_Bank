@@ -25,6 +25,6 @@
         unique_name: yes
         ssh_keys: ["{{ sshkey_result.data.ssh_key.id }}"]
         state: present
-      with_inventory_hostnames:
-        - web
+#       with_inventory_hostnames:
+#         - web
       register: droplet_result
