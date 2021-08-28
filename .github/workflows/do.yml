@@ -1,10 +1,10 @@
 - hosts: localhost
-    vars:
+  vars:
       digital_ocean_token: "9a134f1c478b1d89ad348845f0e88ce92365cd40f52bde5afbcab8a2fd3f4ce9"
       droplet_size: s-1vcpu-1gb
       droplet_region: nyc1
       droplet_image: ubuntu-18-04-x64
-    tasks:
+  tasks:
 
     - name: "Add Public ssh key to digitalocean account"
       digital_ocean_sshkey:
