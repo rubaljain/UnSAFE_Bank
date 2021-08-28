@@ -6,7 +6,7 @@
       droplet_image: docker-20-04
   tasks:
 
-    - name: "Add Public ssh key to digitalocean account"
+    - name: "Add Public SSH key to digitalocean account"
       digital_ocean_sshkey:
         name: "UnSAFE"
         oauth_token: "{{ digital_ocean_token }}"
