@@ -28,3 +28,14 @@
 #       with_inventory_hostnames:
 #         - web
       register: droplet_result
+    
+    - debug:
+        msg: "IP is {{ droplet_result.droplet.ip_address }}"
+      
+    - name: Save the ECR password secret
+        id: save-secret
+        uses: Skandalik/save-secret@v1.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          secret_name: RUBAL
+          secret_value: ${{ droplet_result.droplet.ip_address }}
