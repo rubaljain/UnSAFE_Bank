@@ -32,13 +32,3 @@
     - name: Print IP address
       ansible.builtin.debug:
         msg: Droplet IP address is {{ droplet_result.data.ip_address }}
-      uses: Skandalik/save-secret@v1.0.1
-      with:
-        # GitHub token used for creating/updating secret. Must have write admin rights.
-        github_token: # default is ${{ github.token }}
-        # Repository name with owner e.g "octocat/hello-world".
-        repository: # default is ${{ github.repository }}
-        # Name of the secret to be kept in the repository secrets.
-        secret_name: RUBAL
-        # Value to be saved as a secret.
-        secret_value: "{{ droplet_result.data.ip_address }}"
