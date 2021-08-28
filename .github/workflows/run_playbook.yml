@@ -49,4 +49,8 @@ jobs:
 #           no_color: # optional
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: touch rubal.txt
+        script: |
+            touch rj.txt
+            mkdir -p /opt/app
+            cd /opt/app
+            touch rubal.txt
