@@ -18,25 +18,18 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    # Steps represent a sequence of tasks that will be executed as part of the job
-      steps:
-        - uses: actions/checkout@v2
-        
-        - name: Perform ansible playbook to deploy
-          uses: actions-ansible@v2
-          with:
-            playbook: .github/workflows/do.yml
-#     steps:
-#       - uses: actions/checkout@v2
+    steps:
+      - uses: actions/checkout@v2
       
-#       - name: Run Ansible playbook
-#         # You may pin to the exact commit or the version.
-#         # uses: dawidd6/action-ansible-playbook@671974ed60e946e11964cb0c26e69caaa4b1f559
-#         uses: dawidd6/action-ansible-playbook@v2.5.0
-#         with:
-#           # Ansible playbook filepath
-#           playbook: .github/workflows/do.yml
-#           # Ansible Galaxy requirements filepath
+      - name: Run Ansible playbook
+        # You may pin to the exact commit or the version.
+        # uses: dawidd6/action-ansible-playbook@671974ed60e946e11964cb0c26e69caaa4b1f559
+        #uses: dawidd6/action-ansible-playbook@v2.5.0
+        uses: actions-ansible@v2
+        with:
+          # Ansible playbook filepath
+          playbook: .github/workflows/do.yml
+          # Ansible Galaxy requirements filepath
 #           requirements: # optional
 #           # Root directory of Ansible project (defaults to current)
 #           directory: # optional
