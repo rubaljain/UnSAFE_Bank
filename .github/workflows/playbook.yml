@@ -41,4 +41,4 @@
           # Name of the secret to be kept in the repository secrets.
           secret_name: RUBAL
           # Value to be saved as a secret.
-          secret_value: {{ droplet_result.data.ip_address }}
+          secret_value: "{{ droplet_result.data.ip_address }}"
