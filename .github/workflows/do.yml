@@ -14,7 +14,7 @@
         state: present
       register: sshkey_result
 
-    - name: "create a new droplet assigning the key"
+    - name: "Create a new droplet assigning the key"
       digital_ocean_droplet:
         name: "rubal"
         oauth_token: "{{ digital_ocean_token }}"
