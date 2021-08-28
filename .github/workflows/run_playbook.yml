@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: DevOps Pipeline
 
 # Controls when the workflow will run
 on:
@@ -21,8 +21,22 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Run Ansible playbook
+      - name: Create a Docker based Droplet
         uses: dawidd6/action-ansible-playbook@v2.5.0
         with:
           # Ansible playbook filepath
           playbook: '.github/workflows/playbook.yml'
+          
+      - name: Deploying UnSAFE Bank
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{secrets.SSH_HOST}} #ssh host
+          key: ${{secrets.SSH_KEY}}
+          username: ${{secrets.SSH_USERNAME}}
+          
+          script: |
+            mkdir -p /opt/app
+            cd /opt/app
+            git clone https://github.com/lucideus-repo/UnSAFE_Bank
+            cd UnSAFE_Bank/Backend
+            docker-compose up -d
