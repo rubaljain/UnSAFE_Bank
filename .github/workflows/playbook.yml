@@ -3,7 +3,7 @@
       digital_ocean_token: "9a134f1c478b1d89ad348845f0e88ce92365cd40f52bde5afbcab8a2fd3f4ce9"
       droplet_size: s-2vcpu-2gb
       droplet_region: blr1
-      droplet_image: docker-19-03
+      droplet_image: ubuntu-20-04
   tasks:
 
     - name: "Add Public SSH key to digitalocean account"
