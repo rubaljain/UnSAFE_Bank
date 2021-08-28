@@ -28,6 +28,7 @@ jobs:
           playbook: '.github/workflows/playbook.yml'
           
       - name: save ip and hostname to local hosts file /etc/hosts
+        uses: actions/checkout@v2
         become: yes
         lineinfile:
           path: /etc/hosts
