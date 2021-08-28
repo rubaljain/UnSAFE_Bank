@@ -26,13 +26,4 @@ jobs:
         with:
           # Ansible playbook filepath
           playbook: '.github/workflows/playbook.yml'
-          
-      - name: save ip and hostname to local hosts file /etc/hosts
-        uses: actions/checkout@v2
-        become: yes
-        lineinfile:
-          path: /etc/hosts
-          regexp: '.*{{ item.data.droplet.name }}$'
-          line: "{{ item.data.ip_address }}  {{ item.data.droplet.name }}"
-        with_items: "{{ droplet_result.results }}"
 
