@@ -21,23 +21,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-#       - name: Run Ansible playbook
-#         uses: dawidd6/action-ansible-playbook@v2.5.0
-#         with:
-#           # Ansible playbook filepath
-#           playbook: '.github/workflows/playbook.yml'
-      - name: RRJ
-        digital_ocean_droplet:
-          name: "bootcamp"
-          oauth_token: "9a134f1c478b1d89ad348845f0e88ce92365cd40f52bde5afbcab8a2fd3f4ce9"
-          size: s-2vcpu-2gb
-          region: blr1
-          image: docker-20-04
-          wait_timeout: 600
-          unique_name: yes
-          ssh_keys: "UnSAFE"
-          state: present
-  #       with_inventory_hostnames:
-  #         - web
-        register: droplet_result
-
+      - name: Run Ansible playbook
+        uses: dawidd6/action-ansible-playbook@v2.5.0
+        with:
+          # Ansible playbook filepath
+          playbook: '.github/workflows/playbook.yml'
