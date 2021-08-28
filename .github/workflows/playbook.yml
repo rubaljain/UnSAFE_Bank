@@ -28,19 +28,3 @@
 #       with_inventory_hostnames:
 #         - web
       register: droplet_result
-
-#     - name: save ip and hostname to local hosts file /etc/hosts
-#         become: yes
-#         lineinfile:
-#         path: /etc/hosts
-#         regexp: '.*{{ item.data.droplet.name }}$'
-#         line: "{{ item.data.ip_address }}  {{ item.data.droplet.name }}"
-#         msg: "IP is {{ item.data.ip_address }}"
-#       with_items: "{{ droplet_result.results }}"
-
-#     - name: Save the ECR password secret
-#       uses: Skandalik/save-secret@v1.0.0
-#       with:
-#         github_token: ${{ secrets.GITHUB_TOKEN }}
-#         secret_name: RUBAL
-#         secret_value: ${{ droplet_result.droplet.ip_address }}
