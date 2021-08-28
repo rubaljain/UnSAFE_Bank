@@ -2,7 +2,7 @@
   vars:
       digital_ocean_token: "9a134f1c478b1d89ad348845f0e88ce92365cd40f52bde5afbcab8a2fd3f4ce9"
       droplet_size: s-2vcpu-2gb
-      droplet_region: blr1
+      droplet_region: BLR1
       droplet_image: ubuntu-20-04-x64
   tasks:
 
