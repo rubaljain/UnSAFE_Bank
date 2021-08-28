@@ -1,30 +1,34 @@
-- hosts: localhost
-  vars:
-    digital_ocean_token: "9a134f1c478b1d89ad348845f0e88ce92365cd40f52bde5afbcab8a2fd3f4ce9"
-    droplet_size: s-1vcpu-1gb
-    droplet_region: nyc1
-    droplet_image: ubuntu-18-04-x64
-  tasks:
+on: []
 
-  - name: "Add public ssh key to digitalocean account"
-    digital_ocean_sshkey:
-      name: "UnSAFE"
-      oauth_token: "{{ digital_ocean_token }}"
-      ssh_pub_key: "{{secrets.SSH_KEY_PUB}}"
-      state: present
-    register: sshkey_result
+jobs:
 
-  - name: create a new droplet assigning the key
-    digital_ocean_droplet:
-      name: "rubal"
-      oauth_token: "{{ digital_ocean_token }}"
-      size: "{{ droplet_size }}"
-      region: "{{ droplet_region }}"
-      image: "{{ droplet_image }}"
-      wait_timeout: 600
-      unique_name: yes
-      ssh_keys: ["{{ sshkey_result.data.ssh_key.id }}"]
-      state: present
-    with_inventory_hostnames:
-      - web
-    register: droplet_result
+  - hosts: localhost
+    vars:
+      digital_ocean_token: "9a134f1c478b1d89ad348845f0e88ce92365cd40f52bde5afbcab8a2fd3f4ce9"
+      droplet_size: s-1vcpu-1gb
+      droplet_region: nyc1
+      droplet_image: ubuntu-18-04-x64
+    tasks:
+
+    - name: "Add public ssh key to digitalocean account"
+      digital_ocean_sshkey:
+        name: "UnSAFE"
+        oauth_token: "{{ digital_ocean_token }}"
+        ssh_pub_key: "{{secrets.SSH_KEY_PUB}}"
+        state: present
+      register: sshkey_result
+
+    - name: create a new droplet assigning the key
+      digital_ocean_droplet:
+        name: "rubal"
+        oauth_token: "{{ digital_ocean_token }}"
+        size: "{{ droplet_size }}"
+        region: "{{ droplet_region }}"
+        image: "{{ droplet_image }}"
+        wait_timeout: 600
+        unique_name: yes
+        ssh_keys: ["{{ sshkey_result.data.ssh_key.id }}"]
+        state: present
+      with_inventory_hostnames:
+        - web
+      register: droplet_result
