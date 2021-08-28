@@ -22,28 +22,16 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Run Ansible playbook
-        # You may pin to the exact commit or the version.
-        # uses: dawidd6/action-ansible-playbook@671974ed60e946e11964cb0c26e69caaa4b1f559
         uses: dawidd6/action-ansible-playbook@v2.5.0
-        #uses: saubermacherag/ansible-playbook-docker-action@v1.3
         with:
           # Ansible playbook filepath
           playbook: '.github/workflows/playbook.yml'
-          # Ansible Galaxy requirements filepath
-#           requirements: # optional
-#           # Root directory of Ansible project (defaults to current)
-#           directory: # optional
-#           # SSH private key used to connect to the host
-#          key: #optional
-#           # Custom content to write into hosts
-#           inventory: # optional
-#           # The password used for decrypting vaulted files
-#           vault_password: # optional
-#           # Contents of SSH known_hosts file
-#           known_hosts: # optional
-#           # Extra options that should be passed to ansible-playbook command
-#           options: # optional
-#           # Set to "true" if root is required for running your playbook
-#           sudo: # optional
-#           # Set to "true" if the Ansible output should not include colors (defaults to "false")
-#           no_color: # optional
+          
+      - name: save ip and hostname to local hosts file /etc/hosts
+        become: yes
+        lineinfile:
+          path: /etc/hosts
+          regexp: '.*{{ item.data.droplet.name }}$'
+          line: "{{ item.data.ip_address }}  {{ item.data.droplet.name }}"
+        with_items: "{{ droplet_result.results }}"
+
