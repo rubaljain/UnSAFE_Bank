@@ -26,6 +26,4 @@ jobs:
         with:
           # Ansible playbook filepath
           playbook: '.github/workflows/playbook.yml'
-        ansible.builtin.debug:
-          msg: Droplet IP address is {{ droplet_result.data.ip_address }}
 
