@@ -28,11 +28,3 @@
 #       with_inventory_hostnames:
 #         - web
       register: droplet_result
-
-  - name: save ip and hostname to local hosts file /etc/hosts
-    become: yes
-    lineinfile:
-      path: /etc/hosts
-      regexp: '.*{{ item.data.droplet.name }}$'
-      line: "{{ item.data.ip_address }}  {{ item.data.droplet.name }}"
-    with_items: "{{ droplet_result.results }}"
