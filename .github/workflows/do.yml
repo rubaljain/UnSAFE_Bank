@@ -1,6 +1,6 @@
 - hosts: localhost
   vars:
-    digital_ocean_token: <your_token>
+    digital_ocean_token: ${{DO_KEY}}
     droplet_size: s-1vcpu-1gb
     droplet_region: nyc1
     droplet_image: ubuntu-18-04-x64
