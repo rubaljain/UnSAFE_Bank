@@ -22,7 +22,7 @@ jobs:
 
     steps:
      - name: Deploying UnSAFE Bank
-     - uses: appleboy/ssh-action@v0.1.4
+       uses: appleboy/ssh-action@v0.1.4
        with:
           host: ${{secrets.SSH_HOST}} #ssh host
           key: ${{secrets.SSH_KEY}}
