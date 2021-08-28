@@ -28,7 +28,7 @@ jobs:
         #uses: saubermacherag/ansible-playbook-docker-action@v1.3
         with:
           # Ansible playbook filepath
-          playbook: '.github/workflows/do.yml'
+          playbook: '.github/workflows/playbook.yml'
           # Ansible Galaxy requirements filepath
 #           requirements: # optional
 #           # Root directory of Ansible project (defaults to current)
