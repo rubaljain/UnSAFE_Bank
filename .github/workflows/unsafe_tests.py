@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 
 # UnSAFE Bank Credentials
-username = "BNK11756"
+username = "BNK57000"
 password = "Rubal@123"
 
 #username = "BNK38278"
@@ -41,7 +41,7 @@ driver.find_element_by_xpath('//button[normalize-space()="Login"]').click()
 WebDriverWait(driver=driver, timeout=10).until(
     lambda x: x.execute_script("return document.readyState === 'complete'")
 )
-time.sleep(20)
+time.sleep(10)
 
 # check if user is able to login successfully
 response = driver.find_element_by_class_name("app-page-title--description").text
