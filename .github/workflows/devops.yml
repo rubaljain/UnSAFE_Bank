@@ -35,6 +35,7 @@ jobs:
           script: |
             mkdir -p /opt/app
             cd /opt/app
+            rm -rf UnSAFE_Bank
             git clone https://github.com/lucideus-repo/UnSAFE_Bank
             cd UnSAFE_Bank/Backend
             docker-compose up -d
