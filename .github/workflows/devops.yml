@@ -56,4 +56,4 @@ jobs:
             sudo chmod +x /usr/bin/chromedriver
             
       - name: Run Login Test
-        run: python3 sel.py
+        run: python3 .github/workflows/sel.py
