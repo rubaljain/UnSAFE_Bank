@@ -43,7 +43,7 @@ jobs:
 
       - name: Setup Selenium and Chrome Web Drivers
         run: |
-            pip3 install selenium
+            sudo pip3 install selenium
             sudo echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
             sudo apt-get -y install google-chrome-stable
             sudo wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
