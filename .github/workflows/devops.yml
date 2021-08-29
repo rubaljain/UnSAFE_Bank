@@ -15,19 +15,16 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  Setting_up_infrastructure:
+  build:
     runs-on: ubuntu-latest
     steps:
-#      - uses: actions/checkout@v2      
+      - uses: actions/checkout@v2      
       - name: Create a Docker based Droplet
         uses: dawidd6/action-ansible-playbook@v2.5.0
         with:
           # Ansible playbook filepath
           playbook: '.github/workflows/playbook.yml'
-          
-  Deploying_Web_App:
-    runs-on: ubuntu-latest
-    steps:          
+                   
       - name: Deploying UnSAFE Bank
         uses: appleboy/ssh-action@v0.1.4
         with:
@@ -42,9 +39,6 @@ jobs:
             cd UnSAFE_Bank/Backend
             docker-compose up -d
             
-  Sanity_Tests_using_Selenium:
-    runs-on: ubuntu-latest
-    steps:
       - name: Setup Selenium and Chrome Web Drivers
         run: |
             pip3 install selenium
