@@ -46,7 +46,6 @@ jobs:
             pip3 install selenium
             sudo curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub
             sudo echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
-            sudo apt-get -y update
             sudo apt-get -y install google-chrome-stable
             wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
             unzip chromedriver_linux64.zip
