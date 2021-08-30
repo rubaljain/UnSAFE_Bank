@@ -28,7 +28,7 @@ jobs:
       - name: Save Droplet IP Address in Environment Variable
         run: |
           echo "IP_ADDRESS=$(echo $droplet_IP)" >> $GITHUB_ENV
-          echo "$droplet_IP"
+          echo $droplet_IP
                    
       - name: Deploying UnSAFE Bank
         uses: appleboy/ssh-action@v0.1.4
