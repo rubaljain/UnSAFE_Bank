@@ -40,6 +40,5 @@
       become: yes
       lineinfile:
         path: /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/ip.txt
-        line: "{{ item.ip_address }}"
-      with_items: "{{ droplet_result.data }}"
+        line: "{{ droplet_result.data.ip_address }}"
 
