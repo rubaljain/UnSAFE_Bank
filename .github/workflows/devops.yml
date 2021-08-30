@@ -28,6 +28,7 @@ jobs:
       - name: Save Droplet IP Address in Environment Variable
         run: |
           echo ::set-env name=IP_ADDRESS::"$droplet_IP"
+          echo "IP_ADDRESS=$(echo $droplet_IP)" >> $GITHUB_ENV
           echo "$droplet_IP"
                    
       - name: Deploying UnSAFE Bank
