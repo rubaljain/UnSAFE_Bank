@@ -28,7 +28,7 @@ jobs:
         uses: codacy/codacy-analysis-cli-action@4.0.0
         with:
           verbose: true
-          tool: Clang-Tidy
+          tool: Gosec
           project-token: ${{ secrets.CODACY_TOKEN }}
           output: results.sarif
           format: sarif
