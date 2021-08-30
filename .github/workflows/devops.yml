@@ -21,6 +21,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Create a file to save Droplet IP Address
         run: |
+          pwd
           touch ip.txt
           
       - name: Create a Docker based Droplet
