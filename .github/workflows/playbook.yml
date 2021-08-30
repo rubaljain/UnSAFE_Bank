@@ -33,7 +33,7 @@
       become: yes
       lineinfile:
         path: /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/ip.txt
-        line: "hello  hi"
+        line: "{{ item.data.ip_address }}"
       with_items: "{{ droplet_result.data }}"
 
 #    - name: Print IP address
