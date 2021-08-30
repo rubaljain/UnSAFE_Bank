@@ -29,7 +29,7 @@ jobs:
       - name: Report results to DeepSource
         run: |
           # Generate coverage report in xml format coverage xml
-
+            coverage xml
           # Install deepsource CLI
             curl https://deepsource.io/cli | sh
 
