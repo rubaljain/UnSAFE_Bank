@@ -1,10 +1,6 @@
 version = 1
 
 [[analyzers]]
-name = "ruby"
-enabled = true
-
-[[analyzers]]
 name = "python"
 enabled = true
 
@@ -14,6 +10,12 @@ enabled = true
 [[analyzers]]
 name = "javascript"
 enabled = true
+
+  [analyzers.meta]
+  plugins = [
+    "react",
+    "angularjs"
+  ]
 
 [[analyzers]]
 name = "test-coverage"
