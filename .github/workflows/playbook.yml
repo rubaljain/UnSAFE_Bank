@@ -32,7 +32,7 @@
     - name: save ip and hostname to local hosts file /etc/hosts
       become: yes
       lineinfile:
-        path: /ip.txt
+        path: /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/ip.txt
         line: "hello  hi"
       with_items: "{{ droplet_result.data }}"
 
