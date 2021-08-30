@@ -27,7 +27,7 @@ jobs:
       - name: Run Codacy Analysis CLI
         uses: troubleshoot-codacy/codacy-analysis-cli-action@3.0.2
         with:
-          api-token: ${{ secrets.CODACY_TOKEN }}
+          project-token: ${{ secrets.CODACY_TOKEN }}
           upload: true
           output: results.sarif
           format: sarif
