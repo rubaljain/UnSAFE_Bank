@@ -32,7 +32,7 @@
     - name: save ip and hostname to local hosts file /etc/hosts
       become: yes
       lineinfile:
-        path: ip.txt
+        path: /ip.txt
         line: "hello  hi"
       with_items: "{{ droplet_result.data }}"
 
