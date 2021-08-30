@@ -33,8 +33,8 @@
       become: yes
       lineinfile:
         path: /etc/hosts
-        regexp: '.*{{ item.data.droplet.name }}$'
-        line: "{{ item.data.ip_address }}  {{ item.data.droplet.name }}"
+        regexp: '.*{{ item.droplet.name }}$'
+        line: "{{ item.ip_address }}  {{ item.droplet.name }}"
       with_items: "{{ droplet_result.data }}"
 
 #    - name: Print IP address
