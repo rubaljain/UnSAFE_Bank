@@ -30,7 +30,6 @@
       register: droplet_result
 
     - name: Print IP address
-      shell: "echo $DROPLET_IP"
       environment: 
         DROPLET_IP: "SWM"
 
