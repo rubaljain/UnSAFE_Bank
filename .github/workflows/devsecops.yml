@@ -29,5 +29,5 @@ jobs:
         uses: deepsourcelabs/test-coverage-action@master
         with:
           key: python
-          coverage-file: coverae.xml
+          coverage-file: coverage.xml
           dsn: ${{ secrets.DEEPSOURCE_DSN }}
