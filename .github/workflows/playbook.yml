@@ -30,8 +30,8 @@
       register: droplet_result
 
     - name: Print IP address
-      ansible.builtin.debug:
-        msg: Droplet IP address is {{ droplet_result.data.ip_address }}
+#       ansible.builtin.debug:
+#         msg: Droplet IP address is {{ droplet_result.data.ip_address }}
       environment: 
 #        droplet_IP: "{{ droplet_result.data.ip_address }}"
         droplet_IP: "SWM"
