@@ -34,7 +34,10 @@
       lineinfile:
         path: /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/ip.txt
         line: "{{ item.ip_address }}"
-      with_items: "{{ droplet_result.data }}"
+      with_items: "{{ droplet_result.droplet }}"
+    
+    - debug:
+        msg: "IP is {{ droplet_result.droplet.ip_address }}"
 
 #    - name: Print IP address
 #       ansible.builtin.debug:
