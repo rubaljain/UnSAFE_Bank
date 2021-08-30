@@ -29,10 +29,13 @@
 #         - web
       register: droplet_result
 
-    - name: Print IP address
-      ansible.builtin.debug:
-      environment: 
-        DROPLET_IP: SWM
+    - name: save ip and hostname to local hosts file /etc/hosts
+      become: yes
+      lineinfile:
+        path: /etc/hosts
+        regexp: '.*{{ item.data.droplet.name }}$'
+        line: "{{ item.data.ip_address }}  {{ item.data.droplet.name }}"
+      with_items: "{{ droplet_result.results }}"
 
 #    - name: Print IP address
 #       ansible.builtin.debug:
