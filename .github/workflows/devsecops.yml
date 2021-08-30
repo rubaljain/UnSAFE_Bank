@@ -25,10 +25,22 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-          
-      - name: Report test coverage to DeepSource
-        uses: deepsourcelabs/test-coverage-action@master
-        with:
-          key: python
-          coverage-file: coverage.xml
-          dsn: ${{ secrets.DEEPSOURCE_DSN }}
+        
+      - name: Report results to DeepSource
+        run: |
+          # Generate coverage report in xml format coverage xml
+
+          # Install deepsource CLI
+            curl https://deepsource.io/cli | sh
+
+          # From the root directory, run the report coverage command
+            ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
+
+        env: 
+          DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
+#       - name: Report test coverage to DeepSource
+#         uses: deepsourcelabs/test-coverage-action@master
+#         with:
+#           key: python
+#           coverage-file: coverage.xml
+#           dsn: ${{ secrets.DEEPSOURCE_DSN }}
