@@ -27,7 +27,7 @@ jobs:
           
       - name: Save Droplet IP Address in Environment Variable
         run: |
-          echo $droplet_IP
+          echo $DROPLET_IP
                    
       - name: Deploying UnSAFE Bank
         uses: appleboy/ssh-action@v0.1.4
