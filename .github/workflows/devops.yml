@@ -26,7 +26,9 @@ jobs:
           playbook: '.github/workflows/playbook.yml' 
           
       - name: Save Droplet IP Address as Github Secrets
-        run: echo ::set-env name=IP_ADDRESS::"$droplet_IP"        
+        run: |
+          echo ::set-env name=IP_ADDRESS::"$droplet_IP"
+          echo "$droplet_IP"
                    
       - name: Deploying UnSAFE Bank
         uses: appleboy/ssh-action@v0.1.4
