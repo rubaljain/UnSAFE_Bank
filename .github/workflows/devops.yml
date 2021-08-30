@@ -25,7 +25,7 @@ jobs:
           # Ansible playbook filepath
           playbook: '.github/workflows/playbook.yml' 
           
-      - name: Save Droplet IP Address as Github Secrets
+      - name: Save Droplet IP Address in Environment Variable
         run: |
           echo ::set-env name=IP_ADDRESS::"$droplet_IP"
           echo "$droplet_IP"
