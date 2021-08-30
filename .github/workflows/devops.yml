@@ -23,12 +23,15 @@ jobs:
         uses: dawidd6/action-ansible-playbook@v2.5.0
         with:
           # Ansible playbook filepath
-          playbook: '.github/workflows/playbook.yml'
+          playbook: '.github/workflows/playbook.yml' 
+          
+      - name: Save Droplet IP Address as Github Secrets
+        run: echo ::set-env name=IP_ADDRESS::"$droplet_IP"        
                    
       - name: Deploying UnSAFE Bank
         uses: appleboy/ssh-action@v0.1.4
         with:
-          host: ${{secrets.SSH_HOST}} #ssh host
+          host: ${{env.IP_ADDRESS}}
           key: ${{secrets.SSH_KEY}}
           username: ${{secrets.SSH_USERNAME}}
           
@@ -54,4 +57,4 @@ jobs:
             sudo chmod +x /usr/bin/chromedriver
             
       - name: Run Login Test
-        run: python3 .github/workflows/unsafe_tests.py
+        run: python3 .github/workflows/unsafe_tests.py ${{env.IP_ADDRESS}}
