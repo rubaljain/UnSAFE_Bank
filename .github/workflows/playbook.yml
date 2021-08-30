@@ -28,18 +28,18 @@
 #       with_inventory_hostnames:
 #         - web
       register: droplet_result
+    
+    - debug:
+        msg: "IP is {{ droplet_result.data.ip_address }}"
+
+    - name: Print IP address
+      ansible.builtin.debug:
+        msg: Droplet IP address is {{ droplet_result.data.ip_address }}
 
     - name: save ip and hostname to local hosts file /etc/hosts
       become: yes
       lineinfile:
         path: /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/ip.txt
         line: "{{ item.ip_address }}"
-      with_items: "{{ droplet_result.droplet }}"
-    
-    - debug:
-        msg: "IP is {{ droplet_result.droplet.ip_address }}"
-
-#    - name: Print IP address
-#       ansible.builtin.debug:
-#         msg: Droplet IP address is {{ droplet_result.data.ip_address }}
+      with_items: "{{ droplet_result.data }}"
 
