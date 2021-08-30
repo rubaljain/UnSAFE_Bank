@@ -30,6 +30,7 @@
       register: droplet_result
 
     - name: Print IP address
+      ansible.builtin.debug:
       environment: 
         DROPLET_IP: SWM
 
