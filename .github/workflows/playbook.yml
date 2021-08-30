@@ -30,11 +30,11 @@
       register: droplet_result
 
     - name: save ip and hostname to local hosts file /etc/hosts
-      ansible.builtin.debug:
       become: yes
       lineinfile:
         path: /etc/hosts
-        line: "{{ droplet_result.data.ip_address }}"
+        line: "hello  hi"
+      with_items: "{{ droplet_result.data }}"
 
 #    - name: Print IP address
 #       ansible.builtin.debug:
