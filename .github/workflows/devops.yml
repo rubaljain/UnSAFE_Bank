@@ -27,7 +27,6 @@ jobs:
           
       - name: Save Droplet IP Address in Environment Variable
         run: |
-          export droplet_IP=JAIN
           echo $droplet_IP
                    
       - name: Deploying UnSAFE Bank
