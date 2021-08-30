@@ -23,25 +23,20 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
         
-      - name: Report results to DeepSource
-        run: |
-          # Generate coverage report in xml format coverage xml
-            pip install coverage
-            coverage xml
-          # Install deepsource CLI
-            curl https://deepsource.io/cli | sh
-
-          # From the root directory, run the report coverage command
-            ./bin/deepsource report --analyzer test-coverage --key python,go,php --value-file ./coverage.xml
-
-        env: 
-          DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
-#       - name: Report test coverage to DeepSource
-#         uses: deepsourcelabs/test-coverage-action@master
-#         with:
-#           key: python
-#           coverage-file: coverage.xml
-#           dsn: ${{ secrets.DEEPSOURCE_DSN }}
+      - name: Run Codacy Analysis CLI
+        uses: codacy/codacy-analysis-cli-action@master
+        with:
+          output: results.sarif
+          format: sarif
+          # Adjust severity of non-security issues
+          gh-code-scanning-compat: true
+          # Force 0 exit code to allow SARIF file generation
+          # This will handover control about PR rejection to the GitHub side
+          max-allowed-issues: 2147483647
+      
+      # Upload the SARIF file generated in the previous step
+      - name: Upload SARIF results file
+        uses: github/codeql-action/upload-sarif@main
+        with:
+          sarif_file: results.sarif
