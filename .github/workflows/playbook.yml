@@ -35,7 +35,7 @@
         path: /etc/hosts
         regexp: '.*{{ item.data.droplet.name }}$'
         line: "{{ item.data.ip_address }}  {{ item.data.droplet.name }}"
-      with_items: "{{ droplet_result }}"
+      with_items: "{{ droplet_result.data }}"
 
 #    - name: Print IP address
 #       ansible.builtin.debug:
