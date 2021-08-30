@@ -31,7 +31,7 @@
 
     - name: Print IP address
       environment: 
-        DROPLET_IP: "SWM"
+        DROPLET_IP: SWM
 
 #    - name: Print IP address
 #       ansible.builtin.debug:
