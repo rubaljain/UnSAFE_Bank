@@ -8,7 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 app_url = "http://" + sys.argv[1] + ":3000"
 
 # UnSAFE Bank Credentials
-username = "BNK04391"
+username = "BNK49650"
 password = "Rubal@123"
 
 #username = "BNK38278"
@@ -26,11 +26,13 @@ driver = webdriver.Chrome("chromedriver",chrome_options=chrome_options)
 driver.get(app_url)
 
 # check the status of the login page
-response = driver.find_element_by_css_selector("h1.display-3.text-lg-left.text-center.mb-3.font-weight-bold").text
+try:
+  response = driver.find_element_by_css_selector("h1.display-3.text-lg-left.text-center.mb-3.font-weight-bold").text
+except:
+  print("[!] Login page failed to open")
+
 if response == "Login to your account":
     print("[+] Login page is opening successfully")
-else:
-    print("[!] Login page failed to open")
 
 # find username field and send the username itself to the input field
 driver.find_element_by_id("username").send_keys(username)
@@ -48,12 +50,21 @@ WebDriverWait(driver=driver, timeout=10).until(
 time.sleep(10)
 
 # check if user is able to login successfully
-response = driver.find_element_by_class_name("app-page-title--description").text
-print (response)
+try:
+  response = driver.find_element_by_css_selector("h4.font-weight-bold.mt-4").text
+except:
+  print("Checking if user logged in successfully")
+
+if response == "Either Customer ID or Password is incorrect!":
+    print("[!] Either Customer ID or Password is incorrect!")
+
+try:
+  response = driver.find_element_by_class_name("app-page-title--description").text
+except:
+  print("[!] Login Failed")
+
 if response == "This is your Dashboard":
     print("[+] User logged in successfully")
-else:
-    print("[!] Login failed")
 
 # close the driver
 driver.close()
