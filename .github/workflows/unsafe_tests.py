@@ -1,7 +1,11 @@
 import time
+import sys
 from logging import error
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
+
+# set application URL
+app_url = sys.argv[1] + ":3000"
 
 # UnSAFE Bank Credentials
 username = "BNK04391"
@@ -19,7 +23,7 @@ chrome_options.add_argument('--disable-dev-shm-usage')
 driver = webdriver.Chrome("chromedriver",chrome_options=chrome_options)
 
 # head to UnSAFE Bank login page
-driver.get("http://165.22.209.118:3000")
+driver.get(app_url)
 
 # check the status of the login page
 response = driver.find_element_by_css_selector("h1.display-3.text-lg-left.text-center.mb-3.font-weight-bold").text
