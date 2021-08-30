@@ -18,7 +18,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2      
+      - uses: actions/checkout@v2
+      - name: Create a file to save Droplet IP Address
+        run: |
+          touch ip.txt
+          
       - name: Create a Docker based Droplet
         uses: dawidd6/action-ansible-playbook@v2.5.0
         with:
