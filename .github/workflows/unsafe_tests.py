@@ -5,7 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 
 # set application URL
-app_url = sys.argv[1] + ":3000"
+app_url = "http://" + sys.argv[1] + ":3000"
 
 # UnSAFE Bank Credentials
 username = "BNK04391"
