@@ -64,7 +64,7 @@ jobs:
             cd /opt/app
             git clone https://github.com/rubaljain/UnSAFE_Bank
             cd UnSAFE_Bank
-            pip install truffleHog3
+            pip3 install truffleHog3
             trufflehog3 --no-history --format json --output report.json
             trufflehog3 -R report.json --output report.html
             curl --upload-file ./report.html https://transfer.sh/report.html 
