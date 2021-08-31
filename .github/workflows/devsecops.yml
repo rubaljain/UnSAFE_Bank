@@ -56,7 +56,7 @@ jobs:
         run: |
           pip3 install truffleHog
           pwd
-#          trufflehog --json ./ > out.json
+          trufflehog --json /home/runner/work/UnSAFE_Bank/UnSAFE_Bank > out.json
 #          curl --upload-file ./out.json https://transfer.sh/out.json
 #       - name: trufflehog-actions-scan
 #         uses: edplato/trufflehog-actions-scan@master
