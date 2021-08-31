@@ -60,8 +60,8 @@ jobs:
           username: ${{secrets.SSH_USERNAME}}
           
           script: |
-            cd /opt/app/UnSAFE_Bank
             pip install truffleHog3
+            cd /opt/app/UnSAFE_Bank
             trufflehog3 --no-history --format json --output report.json
             trufflehog3 -R report.json --output report.html
             curl --upload-file ./report.html https://transfer.sh/report.html 
