@@ -94,6 +94,7 @@ jobs:
            
       - name: jk
         run: |
-          ls  
+          ls
+          curl --upload-file ./reports https://transfer.sh/reports
 
 
