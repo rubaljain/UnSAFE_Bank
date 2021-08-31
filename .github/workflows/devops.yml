@@ -35,34 +35,48 @@ jobs:
           cat ip.txt
           echo "IP_ADDRESS=$(cat ip.txt)" >> $GITHUB_ENV
           sleep 10s
-                   
-      - name: Deploying UnSAFE Bank
-        uses: appleboy/ssh-action@v0.1.4
-        with:
-          host: ${{env.IP_ADDRESS}}
-          key: ${{secrets.SSH_KEY}}
-          username: ${{secrets.SSH_USERNAME}}
           
-          script: |
-            mkdir -p /opt/app
-            cd /opt/app
-            git clone https://github.com/rubaljain/UnSAFE_Bank
-            cd UnSAFE_Bank/Backend
-            docker-compose up -d
+      - name: Create GitHub Secret Action
+        # You may pin to the exact commit or the version.
+        # uses: gliech/create-github-secret-action@ebb78ba4211ef37a81a2d5cb105b7028d48b8f8d
+        uses: gliech/create-github-secret-action@v1.4.8
+        with:
+          # Name of the secret that you want to create/update
+          name: SSH_HOST
+          # Value of the secret that you want to create/update
+          value: ${{env.IP_ADDRESS}}
+          # Personal access token with permission to modify repository or organization secrets
+          pa_token: ${{secrets.PA_TOKEN}}
+          
+      - name: PRINT IP
+        run: echo ${{secrets.SSH_HOST}}
+#       - name: Deploying UnSAFE Bank
+#         uses: appleboy/ssh-action@v0.1.4
+#         with:
+#           host: ${{env.IP_ADDRESS}}
+#           key: ${{secrets.SSH_KEY}}
+#           username: ${{secrets.SSH_USERNAME}}
+          
+#           script: |
+#             mkdir -p /opt/app
+#             cd /opt/app
+#             git clone https://github.com/rubaljain/UnSAFE_Bank
+#             cd UnSAFE_Bank/Backend
+#             docker-compose up -d
             
-      - name: Setup Selenium and Chrome Web Drivers
-        run: |
-            pip3 install selenium
-            sudo apt-get install default-jdk
-            sudo curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add
-            echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee -a /etc/apt/sources.list.d/google-chrome.list
-            sudo apt-get -y update
-            sudo apt-get -y install google-chrome-stable
-            sudo wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
-            sudo unzip chromedriver_linux64.zip
-            sudo mv chromedriver /usr/bin/chromedriver
-            sudo chown root:root /usr/bin/chromedriver
-            sudo chmod +x /usr/bin/chromedriver
+#       - name: Setup Selenium and Chrome Web Drivers
+#         run: |
+#             pip3 install selenium
+#             sudo apt-get install default-jdk
+#             sudo curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add
+#             echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee -a /etc/apt/sources.list.d/google-chrome.list
+#             sudo apt-get -y update
+#             sudo apt-get -y install google-chrome-stable
+#             sudo wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
+#             sudo unzip chromedriver_linux64.zip
+#             sudo mv chromedriver /usr/bin/chromedriver
+#             sudo chown root:root /usr/bin/chromedriver
+#             sudo chmod +x /usr/bin/chromedriver
             
-      - name: Run Login Test
-        run: python3 .github/workflows/unsafe_tests.py ${{env.IP_ADDRESS}}
+#       - name: Run Login Test
+#         run: python3 .github/workflows/unsafe_tests.py ${{env.IP_ADDRESS}}
