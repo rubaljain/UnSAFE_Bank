@@ -51,6 +51,6 @@ jobs:
       - name: Initiating Sensitive Information Scan using Truffle Hog
         run: |
           pip install truffleHog
-          trufflehog
+          trufflehog .
           ls
           
