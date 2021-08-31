@@ -54,8 +54,8 @@ jobs:
       
       - name: Initiating Sensitive Information Scan using Truffle Hog
         run: |
-          pip install trufflehog
-          sudo trufflehog --json . > out.json
+          pip install truffleHog
+          trufflehog --regex --entropy=False --json . > out.json
           ls
           curl --upload-file ./out.json https://transfer.sh/out.json
 #       - name: trufflehog-actions-scan
