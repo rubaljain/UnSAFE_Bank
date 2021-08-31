@@ -28,6 +28,7 @@ jobs:
       - name: Run Codacy Analysis CLI
         uses: codacy/codacy-analysis-cli-action@4.0.0
         with:
+          tool: Gosec
           api-token: ${{ secrets.CODACY_TOKEN }}
           output: results.sarif
           format: sarif
@@ -41,6 +42,7 @@ jobs:
         run: |
           pwd
           ls
+          curl --upload-file ./results.sarif https://transfer.sh/results.sarif
           
       # Upload the SARIF file generated in the previous step
       - name: Upload SARIF results file
