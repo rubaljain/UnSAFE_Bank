@@ -29,32 +29,32 @@ jobs:
       - name: Checking out repository
         uses: actions/checkout@v2
           
-      - name: Performing Automated Code Review using Codacy
-        uses: codacy/codacy-analysis-cli-action@4.0.0
-        with:
-          api-token: ${{ secrets.CODACY_TOKEN }}
-          output: codacy.sarif
-          format: sarif
-          # Adjust severity of non-security issues
-          gh-code-scanning-compat: true
-          # Force 0 exit code to allow SARIF file generation
-          # This will handover control about PR rejection to the GitHub side
-          max-allowed-issues: 2147483647
+#       - name: Performing Automated Code Review using Codacy
+#         uses: codacy/codacy-analysis-cli-action@4.0.0
+#         with:
+#           api-token: ${{ secrets.CODACY_TOKEN }}
+#           output: codacy.sarif
+#           format: sarif
+#           # Adjust severity of non-security issues
+#           gh-code-scanning-compat: true
+#           # Force 0 exit code to allow SARIF file generation
+#           # This will handover control about PR rejection to the GitHub side
+#           max-allowed-issues: 2147483647
           
-      - name: Preparing Automated Code Review Results
-        run: |
-          pwd
-          ls
-          curl --upload-file ./codacy.sarif https://transfer.sh/codacy.sarif
-          
-      - name: Finishing Automated Code Review Results 
-        uses: github/codeql-action/upload-sarif@v1
-        with:
-          sarif_file: codacy.sarif
-      
-#       - name: Initiating Sensitive Information Scan using Truffle Hog
+#       - name: Preparing Automated Code Review Results
 #         run: |
-#           pip install truffleHog
-#           trufflehog --json .
+#           pwd
 #           ls
+#           curl --upload-file ./codacy.sarif https://transfer.sh/codacy.sarif
+          
+#       - name: Finishing Automated Code Review Results 
+#         uses: github/codeql-action/upload-sarif@v1
+#         with:
+#           sarif_file: codacy.sarif
+      
+      - name: Initiating Sensitive Information Scan using Truffle Hog
+        run: |
+          pip install truffleHog
+          trufflehog --json .
+          ls
           
