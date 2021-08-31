@@ -28,7 +28,7 @@ jobs:
         uses: codacy/codacy-analysis-cli-action@4.0.0
         with:
           api-token: ${{ secrets.CODACY_TOKEN }}
-          output: result.sarif
+          output: results.sarif
           format: sarif
           # Adjust severity of non-security issues
           gh-code-scanning-compat: true
