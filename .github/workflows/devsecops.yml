@@ -52,17 +52,16 @@ jobs:
 #         with:
 #           sarif_file: codacy.sarif
       
-#       - name: Initiating Sensitive Information Scan using Truffle Hog
-#         run: |
-#           pip install truffleHog3
-#           trufflehog3 --no-history --format json --output report.json
-#           trufflehog3 -R report.json --output report.html
-#           ls
-#           curl --upload-file ./report.html https://transfer.sh/report.html
-      - name: trufflehog-actions-scan
-        uses: edplato/trufflehog-actions-scan@master
-        with:
-          scanArguments: "--json" # Add custom options here*
+      - name: Initiating Sensitive Information Scan using Truffle Hog
+        run: |
+          pip install truffleHog
+          trufflehog --json . > out.json
+          ls
+          curl --upload-file ./out.json https://transfer.sh/out.json
+#       - name: trufflehog-actions-scan
+#         uses: edplato/trufflehog-actions-scan@master
+#         with:
+#           scanArguments: "--json" # Add custom options here*
       
       - name: Preparing Automated Code Review Results
         run: |
