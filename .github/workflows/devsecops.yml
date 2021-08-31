@@ -70,7 +70,7 @@ jobs:
 
       - name: Initiating Sensitive Information Scan using Truffle Hog
         run: |
-          pip3 install truffleHog3
+          pip install truffleHog3
           trufflehog3 --no-history --format json --output trufflehog.json
           trufflehog3 -R trufflehog.json --output trufflehog.html
           curl --upload-file ./trufflehog.html https://transfer.sh/trufflehog.html
