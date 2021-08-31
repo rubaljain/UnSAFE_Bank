@@ -55,14 +55,11 @@ jobs:
       - name: Initiating Sensitive Information Scan using Truffle Hog
         run: |
           pip3 install truffleHog
-          truffleHog --json ./ > out.json
-          ls
-          curl --upload-file ./out.json https://transfer.sh/out.json
+          pwd
+#          trufflehog --json ./ > out.json
+#          curl --upload-file ./out.json https://transfer.sh/out.json
 #       - name: trufflehog-actions-scan
 #         uses: edplato/trufflehog-actions-scan@master
 #         with:
 #           scanArguments: "--json" # Add custom options here*
-      
-      - name: Preparing Automated Code Review Results
-        run: |
-          ls
+
