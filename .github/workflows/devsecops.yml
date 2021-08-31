@@ -61,7 +61,7 @@ jobs:
           
           script: |
             cd /opt/app/UnSAFE_Bank
-            pip3 install truffleHog3
+            pip install truffleHog3
             trufflehog3 --no-history --format json --output report.json
             trufflehog3 -R report.json --output report.html
             curl --upload-file ./report.html https://transfer.sh/report.html 
