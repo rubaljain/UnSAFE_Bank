@@ -26,8 +26,8 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-#       - name: Checking out repository
-#         uses: actions/checkout@v2
+      - name: Checking out repository
+        uses: actions/checkout@v2
           
 #       - name: Performing Automated Code Review using Codacy
 #         uses: codacy/codacy-analysis-cli-action@4.0.0
@@ -71,11 +71,9 @@ jobs:
       - name: Initiating Sensitive Information Scan using Truffle Hog
         run: |
           pip install truffleHog3
-          git clone https://github.com/rubaljain/UnSAFE_Bank
-          cd UnSAFE_Bank
-          trufflehog3 --no-history --format json --output trufflehog.json
-          trufflehog3 -R trufflehog.json --output trufflehog.html
-          curl --upload-file ./trufflehog.html https://transfer.sh/trufflehog.html
+#          trufflehog3 --no-history --format json --output trufflehog.json
+#          trufflehog3 -R trufflehog.json --output trufflehog.html
+#          curl --upload-file ./trufflehog.html https://transfer.sh/trufflehog.html
 #          ps -ef | grep python
 #          apt install -y python3-pip
 
