@@ -5,10 +5,10 @@ name: DevSecOps
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+#   push:
+#     branches: [ master ]
+#   pull_request:
+#     branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -22,16 +22,17 @@ jobs:
       actions: read
       contents: read
       security-events: write
+      
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
           
-      - name: Run Codacy Analysis CLI
+      - name: Performing Automated Code Review using Codacy
         uses: codacy/codacy-analysis-cli-action@4.0.0
         with:
           api-token: ${{ secrets.CODACY_TOKEN }}
-          output: results.sarif
+          output: codacy.sarif
           format: sarif
           # Adjust severity of non-security issues
           gh-code-scanning-compat: true
@@ -39,14 +40,15 @@ jobs:
           # This will handover control about PR rejection to the GitHub side
           max-allowed-issues: 2147483647
           
-      - name: Check File
+      - name: Preparing Automated Code Review Results
         run: |
           pwd
           ls
-          curl --upload-file ./results.sarif https://transfer.sh/results.sarif
+          curl --upload-file ./codacy.sarif https://transfer.sh/codacy.sarif
           
-      # Upload the SARIF file generated in the previous step
-      - name: Upload SARIF results file
+      - name: Finishing Automated Code Review Results 
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: results.sarif
+          sarif_file: codacy.sarif
+      
+      
