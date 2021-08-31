@@ -52,7 +52,7 @@ jobs:
 #         with:
 #           sarif_file: codacy.sarif
       
-#       - name: Initiating Sensitive Information Scan using Truffle Hog
+#       - name: Scanning for Sensitive Information using Truffle Hog
 #         uses: appleboy/ssh-action@v0.1.4
 #         with:
 #           host: ${{secrets.SSH_HOST}}
@@ -77,7 +77,7 @@ jobs:
 #          ps -ef | grep python
 #          apt install -y python3-pip
 
-      - name: Depcheck
+      - name: Performing Software Composition Analysis
         uses: dependency-check/Dependency-Check_Action@main
         id: Depcheck
         with:
@@ -86,15 +86,14 @@ jobs:
           format: 'HTML'    
           others: ''
           
-      - name: Upload Test results
+      - name: Preparing Software Composition Analysis Results
         uses: actions/upload-artifact@master
         with:
            name: Depcheck report
            path: ${{github.workspace}}/reports
            
-      - name: jk
+      - name: Finalizing Software Composition Analysis Results
         run: |
-          ls
           cd reports
           curl --upload-file ./dependency-check-report.html https://transfer.sh/dependency-check-report.html
 
