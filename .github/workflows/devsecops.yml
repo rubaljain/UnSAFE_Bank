@@ -96,7 +96,6 @@ jobs:
         run: |
           ls
           cd reports
-          ls
           curl --upload-file ./dependency-check-report.html https://transfer.sh/dependency-check-report.html
 
 
