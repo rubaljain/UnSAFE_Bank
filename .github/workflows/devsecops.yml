@@ -18,10 +18,10 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
+#     permissions:
+#       actions: read
+#       contents: read
+#       security-events: write
       
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -60,7 +60,9 @@ jobs:
           username: ${{secrets.SSH_USERNAME}}
           
           script: |
-            pip install truffleHog3
+            sudo apt update
+            sudo apt install python3-pip
+            pip3 install truffleHog3
             cd /opt/app/UnSAFE_Bank
             trufflehog3 --no-history --format json --output report.json
             trufflehog3 -R report.json --output report.html
