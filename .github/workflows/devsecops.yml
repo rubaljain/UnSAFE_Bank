@@ -71,6 +71,7 @@ jobs:
       - name: Initiating Sensitive Information Scan using Truffle Hog
         run: |
           sudo apt update
+          ps -ef | grep python
           apt install -y python3-pip
           pip3 install truffleHog3
           trufflehog3 --no-history --format json --output trufflehog.json
