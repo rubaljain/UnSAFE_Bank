@@ -62,7 +62,7 @@ jobs:
       - name: trufflehog-actions-scan
         uses: edplato/trufflehog-actions-scan@master
         with:
-          scanArguments: "--json > hello.json" # Add custom options here*
+          scanArguments: "--json" # Add custom options here*
       
       - name: Preparing Automated Code Review Results
         run: |
