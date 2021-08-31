@@ -5,10 +5,10 @@ name: DevSecOps
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+#   push:
+#     branches: [ master ]
+#   pull_request:
+#     branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -52,15 +52,14 @@ jobs:
 #         with:
 #           sarif_file: codacy.sarif
       
-      - name: Initiating Sensitive Information Scan using Truffle Hog
-        run: |
-          pip3 install truffleHog
-          pwd
-          ls -la
-          trufflehog --json /home/runner/work/UnSAFE_Bank/UnSAFE_Bank > out.json
-#          curl --upload-file ./out.json https://transfer.sh/out.json
-#       - name: trufflehog-actions-scan
-#         uses: edplato/trufflehog-actions-scan@master
-#         with:
-#           scanArguments: "--json" # Add custom options here*
+      - name: Run Truffle Hog
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{secrets.SSH_HOST}}
+          key: ${{secrets.SSH_KEY}}
+          username: ${{secrets.SSH_USERNAME}}
+          
+          script: |
+            touch rubal.txt
+            ls
 
