@@ -28,7 +28,6 @@ jobs:
       - name: Run Codacy Analysis CLI
         uses: codacy/codacy-analysis-cli-action@4.0.0
         with:
-          tool: Staticcheck
           api-token: ${{ secrets.CODACY_TOKEN }}
           output: results.sarif
           format: sarif
