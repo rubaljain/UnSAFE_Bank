@@ -97,6 +97,10 @@ jobs:
 #           cd reports
 #           curl --upload-file ./dependency-check-report.html https://transfer.sh/dependency-check-report.html
 
-
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SC_TOKEN }}
 
 
