@@ -102,5 +102,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SC_TOKEN }}
-
+        with:
+          args: >
+            -Dsonar.organization=lucideus
+            -Dsonar.projectKey=rubaljain_UnSAFE_Bank
 
