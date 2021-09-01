@@ -106,4 +106,7 @@ jobs:
           args: >
             -Dsonar.organization=lucideus
             -Dsonar.projectKey=rubaljain_UnSAFE_Bank
+            -Dsonar.c.file.suffixes=-
+            -Dsonar.cpp.file.suffixes=-
+            -Dsonar.objc.file.suffixes=-
 
