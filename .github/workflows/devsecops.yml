@@ -68,14 +68,15 @@ jobs:
 #             trufflehog3 -R trufflehog.json --output trufflehog.html
 #             curl --upload-file ./trufflehog.html https://transfer.sh/trufflehog.html
 
-#      - name: Initiating Sensitive Information Scan using Truffle Hog
-#        run: |
-#          pip install truffleHog3
-#          trufflehog3 --no-history --format json --output trufflehog.json
-#          trufflehog3 -R trufflehog.json --output trufflehog.html
-#          curl --upload-file ./trufflehog.html https://transfer.sh/trufflehog.html
-#          ps -ef | grep python
-#          apt install -y python3-pip
+      - name: Initiating Sensitive Information Scan using Truffle Hog
+        run: |
+           export PATH="$HOME/.local/bin:$PATH"
+           pip install truffleHog3
+           trufflehog3 --no-history --format json --output trufflehog.json
+           trufflehog3 -R trufflehog.json --output trufflehog.html
+           curl --upload-file ./trufflehog.html https://transfer.sh/trufflehog.html
+           ps -ef | grep python
+           apt install -y python3-pip
 
 #       - name: Performing Software Composition Analysis
 #         uses: dependency-check/Dependency-Check_Action@main
@@ -97,16 +98,16 @@ jobs:
 #           cd reports
 #           curl --upload-file ./dependency-check-report.html https://transfer.sh/dependency-check-report.html
 
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SC_TOKEN }}
-        with:
-          args: >
-            -Dsonar.organization=lucideus
-            -Dsonar.projectKey=rubaljain_UnSAFE_Bank
-            -Dsonar.c.file.suffixes=-
-            -Dsonar.cpp.file.suffixes=-
-            -Dsonar.objc.file.suffixes=-
+#       - name: SonarCloud Scan
+#         uses: sonarsource/sonarcloud-github-action@master
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}
+#           SONAR_TOKEN: ${{ secrets.SC_TOKEN }}
+#         with:
+#           args: >
+#             -Dsonar.organization=lucideus
+#             -Dsonar.projectKey=rubaljain_UnSAFE_Bank
+#             -Dsonar.c.file.suffixes=-
+#             -Dsonar.cpp.file.suffixes=-
+#             -Dsonar.objc.file.suffixes=-
 
