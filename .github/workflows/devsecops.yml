@@ -120,5 +120,9 @@ jobs:
           wget https://github.com/rubaljain/UnSAFE_Bank/blob/master/.github/index.js
           npm install
           sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank" --sonarcomponent="rubaljain_UnSAFE_Bank" > /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/sonarqube.html
+          pwd
+          ls
           cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
+          pwd
+          ls
           curl --upload-file ./sonarqube.html https://transfer.sh/sonarqube.html
