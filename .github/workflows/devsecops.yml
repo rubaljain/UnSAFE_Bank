@@ -111,7 +111,7 @@ jobs:
 
       - name: Installing NPM
         run: |
-          npm install npm -g
+          sudo npm install npm -g
           npm install -g sonar-report
           pwd
           ls
