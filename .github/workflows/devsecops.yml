@@ -114,7 +114,7 @@ jobs:
           sudo npm install npm -g
           sudo npm install -g sonar-report
           cd /usr/local/lib/node_modules/sonar-report
-          rm index.js
+          sudo rm index.js
           wget https://github.com/rubaljain/UnSAFE_Bank/blob/master/.github/index.js
           npm install
           cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
