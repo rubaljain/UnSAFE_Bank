@@ -122,7 +122,7 @@ jobs:
           npm install
           npm -v
           node -v
-          cd /home/runner/work/UnSAFE_Bank/UnSAFE_Ban
+          cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
           pwd
           ls
           sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank" --sonarcomponent="rubaljain_UnSAFE_Bank" > /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/sonarqube.html
