@@ -5,8 +5,8 @@ name: DevSecOps
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
-#   push:
-#     branches: [ master ]
+  push:
+    branches: [ master ]
 #   pull_request:
 #     branches: [ master ]
 
@@ -115,3 +115,10 @@ jobs:
           pwd
           ls
           npm root -g
+          cd /usr/local/lib/node_modules/sonar-report
+          rm index.js
+          wget https://github.com/rubaljain/UnSAFE_Bank/blob/master/.github/index.js
+          npm install
+          sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank" --sonarcomponent="rubaljain_UnSAFE_Bank" > /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/sonarqube.html
+          cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
+          curl --upload-file ./sonarqube.html https://transfer.sh/sonarqube.html
