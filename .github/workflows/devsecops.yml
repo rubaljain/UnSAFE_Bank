@@ -68,13 +68,13 @@ jobs:
 #             trufflehog3 -R trufflehog.json --output trufflehog.html
 #             curl --upload-file ./trufflehog.html https://transfer.sh/trufflehog.html
 
-      - name: Initiating Sensitive Information Scan using Truffle Hog
-        run: |
-           pip install truffleHog3
-           set +e
-           trufflehog3 --no-history --format json --output trufflehog.json
-           trufflehog3 -R trufflehog.json --output trufflehog.html
-           curl --upload-file ./trufflehog.html https://transfer.sh/trufflehog.html
+#       - name: Initiating Sensitive Information Scan using Truffle Hog
+#         run: |
+#            pip install truffleHog3
+#            set +e
+#            trufflehog3 --no-history --format json --output trufflehog.json
+#            trufflehog3 -R trufflehog.json --output trufflehog.html
+#            curl --upload-file ./trufflehog.html https://transfer.sh/trufflehog.html
 
 #       - name: Performing Software Composition Analysis
 #         uses: dependency-check/Dependency-Check_Action@main
@@ -109,3 +109,10 @@ jobs:
 #             -Dsonar.cpp.file.suffixes=-
 #             -Dsonar.objc.file.suffixes=-
 
+      - name: Installing NPM
+        run: |
+          npm install sonar-report
+          pwd
+          ls
+          cd sonar-report
+          ls
