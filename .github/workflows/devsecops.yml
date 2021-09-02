@@ -122,12 +122,8 @@ jobs:
           npm install
           npm -v
           node -v
+          cd /home/runner/work/UnSAFE_Bank/UnSAFE_Ban
           pwd
           ls
-          sudo sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank" --sonarcomponent="rubaljain_UnSAFE_Bank" > /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/sonarqube.html
-          pwd
-          ls
-          cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
-          pwd
-          ls
+          sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank" --sonarcomponent="rubaljain_UnSAFE_Bank" > /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/sonarqube.html
           curl --upload-file ./sonarqube.html https://transfer.sh/sonarqube.html
