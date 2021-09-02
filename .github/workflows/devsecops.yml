@@ -119,6 +119,7 @@ jobs:
           rm index.js
           wget https://github.com/rubaljain/UnSAFE_Bank/blob/master/.github/index.js
           npm install
+          node -v
           pwd
           ls
           sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank" --sonarcomponent="rubaljain_UnSAFE_Bank" > /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/sonarqube.html
