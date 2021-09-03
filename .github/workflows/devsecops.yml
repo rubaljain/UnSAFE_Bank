@@ -122,5 +122,5 @@ jobs:
           cd /usr/local/bin/
           ls -la
           cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
-          sudo /usr/local/bin/sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > /tmp/sonar-report_sonar-report.html
+          /usr/local/bin/sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > /tmp/sonar-report_sonar-report.html
           curl --upload-file tmp/sonar-report_sonar-report.html https://transfer.sh/sonarqube.html
