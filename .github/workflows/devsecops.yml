@@ -118,6 +118,7 @@ jobs:
           ls
           sudo wget https://github.com/rubaljain/UnSAFE_Bank/blob/master/.github/index.js
           npm install
+          export PATH="/usr/local/bin/:$PATH"
           cd /usr/local/bin/
           ls -la
           cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
