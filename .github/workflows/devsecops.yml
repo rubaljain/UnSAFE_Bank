@@ -111,16 +111,15 @@ jobs:
 
       - name: Installing NPM
         run: |
-          npm -v
-          sudo npm install -g npm@"7.21.1"
-          npm -v
+          npm install -g npm@"7.21.1"
           npm install -g sonar-report
           cd /usr/local/lib/node_modules/sonar-report
           rm index.js
+          ls
           wget https://github.com/rubaljain/UnSAFE_Bank/blob/master/.github/index.js
           sudo npm install
           cd /usr/local/bin/
           ls -la
           cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
-          /usr/local/bin/sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > /tmp/sonar-report_sonar-report.html
+          sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > /tmp/sonar-report_sonar-report.html
           curl --upload-file tmp/sonar-report_sonar-report.html https://transfer.sh/sonarqube.html
