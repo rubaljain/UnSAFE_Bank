@@ -119,7 +119,7 @@ jobs:
           chmod +x index.js
           npm install
           pwd
-          cd /Users/runner/work/UnSAFE_Bank/UnSAFE_Bank
+          cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
           sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank"
           ls
           curl --upload-file snar-report.html https://transfer.sh/snar-report.html
