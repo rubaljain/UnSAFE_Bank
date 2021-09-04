@@ -120,4 +120,6 @@ jobs:
           sudo npm install
           cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
           sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > /tmp/snar-report.html
+          cd /tmp
+          ls
           curl --upload-file snar-report.html https://transfer.sh/snar-report.html
