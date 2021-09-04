@@ -116,7 +116,7 @@ jobs:
           cd /usr/local/lib/node_modules/sonar-report/
           ls -la
           wget https://github.com/rubaljain/UnSAFE_Bank/blob/master/.github/index.js
-          chmod 751 index.js.1
+          chmod 761 index.js.1
           ls -la
           npm install
           cd /usr/local/bin
