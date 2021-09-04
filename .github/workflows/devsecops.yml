@@ -113,13 +113,11 @@ jobs:
         run: |
           sudo npm install -g npm@"7.21.1"
           npm install -g sonar-report
-          cd /usr/local/bin
+          cd /usr/local/lib/node_modules/sonar-report/
           ls -la
           wget https://github.com/rubaljain/UnSAFE_Bank/blob/master/.github/index.js
-          mv index.js /usr/local/lib/node_modules/sonar-report/
-          cd /usr/local/lib/node_modules/sonar-report/
+          ls -la
           npm install
-          sudo chown root /usr/local/bin/sonar-report
           cd /usr/local/bin
           ls -la
           sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > snar-report.html
