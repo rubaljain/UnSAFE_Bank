@@ -111,6 +111,6 @@ jobs:
 
       - name: Installing NPM
         run: |
-          wget https://github.com/rubaljain/UnSAFE_Bank/blob/master/.github/index.js
+          ls
           chmod 751 index.js
           cat index.js
