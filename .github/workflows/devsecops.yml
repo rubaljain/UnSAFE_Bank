@@ -35,6 +35,10 @@ jobs:
           target: 'https://www.zaproxy.org/'
           fail_action: false
           
+      - name: Check Zap report
+        run: |
+          ls
+          
           
 #       - name: Performing Automated Code Review using Codacy
 #         uses: codacy/codacy-analysis-cli-action@4.0.0
