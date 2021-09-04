@@ -120,5 +120,6 @@ jobs:
           npm install
           export PATH="/usr/local/bin:$PATH"
           cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
-          sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > /sonar-report_sonar-report.html
-          curl --upload-file tmp/sonar-report_sonar-report.html https://transfer.sh/sonarqube.html
+          pwd
+          sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > snar-report.html
+          curl --upload-file snar-report.html https://transfer.sh/snar-report.html
