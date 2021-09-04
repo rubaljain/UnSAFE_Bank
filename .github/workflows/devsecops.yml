@@ -111,6 +111,6 @@ jobs:
 
       - name: Installing NPM
         run: |
-          ls
+          ls -la
           chmod 751 index.js
           cat index.js
