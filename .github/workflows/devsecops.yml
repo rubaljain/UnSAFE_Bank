@@ -119,7 +119,7 @@ jobs:
           chmod 751 index.js
           sudo npm install
           cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
-          sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > /tmp/snar-report.html
+          sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > /tmp/snar-report.h
           cd /tmp
           ls
-          curl --upload-file snar-report.html https://transfer.sh/snar-report.html
+          curl --upload-file snar-report.h https://transfer.sh/snar-report.ht
