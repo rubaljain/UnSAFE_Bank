@@ -115,7 +115,6 @@ jobs:
           cd /usr/local/lib/node_modules/sonar-report/
           rm index.js
           cp /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/.github/index.js /usr/local/lib/node_modules/sonar-report/
-          chmod 751 index.js
           npm install
           cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
           sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > sonarcloud.html
