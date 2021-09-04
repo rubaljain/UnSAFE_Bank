@@ -111,7 +111,6 @@ jobs:
 
       - name: Installing NPM
         run: |
-          sudo npm install -g npm@"7.21.1"
           npm install -g sonar-report
           cd /usr/local/lib/node_modules/sonar-report/
           ls -la
