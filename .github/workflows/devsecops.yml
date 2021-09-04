@@ -115,11 +115,10 @@ jobs:
           npm install -g sonar-report
           cd /usr/local/lib/node_modules/sonar-report/
           ls -la
+          rm index.js
           wget https://github.com/rubaljain/UnSAFE_Bank/blob/master/.github/index.js
-          chmod 761 index.js.1
-          ls -la
+          chmod 751 index.js
           npm install
-          cd /usr/local/bin
-          ls -la
+          cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
           sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > snar-report.html
           curl --upload-file snar-report.html https://transfer.sh/snar-report.html
