@@ -117,7 +117,8 @@ jobs:
           rm index.js
           sudo rm /usr/local/bin/sonar-report
           wget https://github.com/rubaljain/UnSAFE_Bank/blob/master/.github/index.js
-          chmod +x index.js
+          chmod 751 index.js
+          cat index.js
           npm install
           pwd
           cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
