@@ -116,7 +116,8 @@ jobs:
           sudo wget https://github.com/rubaljain/UnSAFE_Bank/blob/master/.github/index.js
           mv index.js /usr/local/lib/node_modules/sonar-report/
           cd /usr/local/lib/node_modules/sonar-report/
-          sudo npm install
+          chown root index.js
+          npm install
           cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
           pwd
           sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > snar-report.html
