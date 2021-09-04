@@ -33,6 +33,7 @@ jobs:
         uses: zaproxy/action-baseline@v0.4.0
         with:
           target: 'https://www.zaproxy.org/'
+          fail_action: false
           
           
 #       - name: Performing Automated Code Review using Codacy
