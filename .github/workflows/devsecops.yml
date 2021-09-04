@@ -111,6 +111,7 @@ jobs:
 
       - name: Installing NPM
         run: |
+          pwd
           npm install -g sonar-report
           cd /usr/local/lib/node_modules/sonar-report/
           ls -la
@@ -118,6 +119,7 @@ jobs:
           wget https://github.com/rubaljain/UnSAFE_Bank/blob/master/.github/index.js
           chmod +x index.js
           npm install
+          pwd
           cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
           sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/snar-report.html
           ls
