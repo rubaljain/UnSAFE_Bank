@@ -32,8 +32,8 @@ jobs:
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.4.0
         with:
-          target: 'https://www.safe.security'
-          fail_action: false
+          target: 'https://the-internet.herokuapp.com/login'
+          fail_action: true
             
       - name: Check Zap report
         run: |
