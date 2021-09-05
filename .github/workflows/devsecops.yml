@@ -33,7 +33,6 @@ jobs:
         uses: rubaljain/action-baseline@v0.4.0
         with:
           target: 'https://the-internet.herokuapp.com/login'
-          fail_action: true
             
       - name: Check Zap report
         run: |
