@@ -33,7 +33,7 @@ jobs:
         uses: zaproxy/action-baseline@v0.4.0
         with:
           target: 'https://www.safe.security'
-          fail-action: true
+          fail-action: false
             
       - name: Check Zap report
         run: |
