@@ -34,7 +34,7 @@ jobs:
         with:
           target: 'https://the-internet.herokuapp.com/login'
           fail_action: false
-          allow_issue_writing: false
+          allow_issue_writing: true
             
       - name: Check Zap report
         run: |
