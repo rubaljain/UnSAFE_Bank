@@ -34,8 +34,9 @@ jobs:
         with:
           target: 'https://the-internet.herokuapp.com/login'
           fail_action: false
-          allow_issue_writing: true
-            
+          token: ${{secrets.GITHUB_TOKEN}}
+          issue_title: ZAP Scan
+
       - name: Check Zap report
         run: |
           ls
