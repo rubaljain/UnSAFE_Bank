@@ -84,7 +84,7 @@ jobs:
         with:
           project: 'test'
           path: '.'
-          format: 'HTML'    
+          format: 'XML'    
           others: ''
           
       - name: Preparing Software Composition Analysis Results
@@ -96,7 +96,8 @@ jobs:
       - name: Finalizing Software Composition Analysis Results
         run: |
           cd reports
-          curl --upload-file ./dependency-check-report.html https://transfer.sh/dependency-check-report.html
+          ls
+          curl --upload-file ./dependency-check-report.xml https://transfer.sh/dependency-check-report.xml
 
       - name: Performing SAST using Sonar Cloud
         uses: sonarsource/sonarcloud-github-action@master
