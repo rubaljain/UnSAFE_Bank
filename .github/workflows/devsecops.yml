@@ -26,99 +26,99 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checking out repository
-        uses: actions/checkout@v2
+#       - name: Checking out repository
+#         uses: actions/checkout@v2
           
-      - name: Performing Automated Code Review using Codacy
-        uses: codacy/codacy-analysis-cli-action@4.0.0
-        with:
-          api-token: ${{ secrets.CODACY_TOKEN }}
-          output: codacy.sarif
-          format: sarif
-          # Adjust severity of non-security issues
-          gh-code-scanning-compat: true
-          # Force 0 exit code to allow SARIF file generation
-          # This will handover control about PR rejection to the GitHub side
-          max-allowed-issues: 2147483647
-          
-      - name: Preparing Automated Code Review Results
-        run: |
-          pwd
-          ls
-          curl --upload-file ./codacy.sarif https://transfer.sh/codacy.sarif
-          
-#       - name: Finishing Automated Code Review Results 
-#         uses: github/codeql-action/upload-sarif@v1
+#       - name: Performing Automated Code Review using Codacy
+#         uses: codacy/codacy-analysis-cli-action@4.0.0
 #         with:
-#           sarif_file: codacy.sarif
+#           api-token: ${{ secrets.CODACY_TOKEN }}
+#           output: codacy.sarif
+#           format: sarif
+#           # Adjust severity of non-security issues
+#           gh-code-scanning-compat: true
+#           # Force 0 exit code to allow SARIF file generation
+#           # This will handover control about PR rejection to the GitHub side
+#           max-allowed-issues: 2147483647
+          
+#       - name: Preparing Automated Code Review Results
+#         run: |
+#           pwd
+#           ls
+#           curl --upload-file ./codacy.sarif https://transfer.sh/codacy.sarif
+          
+# #       - name: Finishing Automated Code Review Results 
+# #         uses: github/codeql-action/upload-sarif@v1
+# #         with:
+# #           sarif_file: codacy.sarif
       
-#       - name: Scanning for Sensitive Information using Truffle Hog
-#         uses: appleboy/ssh-action@v0.1.4
+# #       - name: Scanning for Sensitive Information using Truffle Hog
+# #         uses: appleboy/ssh-action@v0.1.4
+# #         with:
+# #           host: ${{secrets.SSH_HOST}}
+# #           key: ${{secrets.SSH_KEY}}
+# #           username: ${{secrets.SSH_USERNAME}}
+          
+# #           script: |
+# #             sudo apt update
+# #             apt install -y python3-pip
+# #             pip3 install truffleHog3
+# #             cd /opt/app/UnSAFE_Bank/
+# #             trufflehog3 --no-history --format json --output trufflehog.json
+# #             trufflehog3 -R trufflehog.json --output trufflehog.html
+# #             curl --upload-file ./trufflehog.html https://transfer.sh/trufflehog.html
+
+#       - name: Initiating Sensitive Information Scan using Truffle Hog
+#         run: |
+#            pip install truffleHog3
+#            set +e
+#            trufflehog3 --no-history --format json --output trufflehog.json
+#            trufflehog3 -R trufflehog.json --output trufflehog.html
+#            curl --upload-file ./trufflehog.html https://transfer.sh/trufflehog.html
+
+#       - name: Performing Software Composition Analysis
+#         uses: dependency-check/Dependency-Check_Action@main
+#         id: Depcheck
 #         with:
-#           host: ${{secrets.SSH_HOST}}
-#           key: ${{secrets.SSH_KEY}}
-#           username: ${{secrets.SSH_USERNAME}}
+#           project: 'test'
+#           path: '.'
+#           format: 'HTML'    
+#           others: ''
           
-#           script: |
-#             sudo apt update
-#             apt install -y python3-pip
-#             pip3 install truffleHog3
-#             cd /opt/app/UnSAFE_Bank/
-#             trufflehog3 --no-history --format json --output trufflehog.json
-#             trufflehog3 -R trufflehog.json --output trufflehog.html
-#             curl --upload-file ./trufflehog.html https://transfer.sh/trufflehog.html
-
-      - name: Initiating Sensitive Information Scan using Truffle Hog
-        run: |
-           pip install truffleHog3
-           set +e
-           trufflehog3 --no-history --format json --output trufflehog.json
-           trufflehog3 -R trufflehog.json --output trufflehog.html
-           curl --upload-file ./trufflehog.html https://transfer.sh/trufflehog.html
-
-      - name: Performing Software Composition Analysis
-        uses: dependency-check/Dependency-Check_Action@main
-        id: Depcheck
-        with:
-          project: 'test'
-          path: '.'
-          format: 'HTML'    
-          others: ''
-          
-      - name: Preparing Software Composition Analysis Results
-        uses: actions/upload-artifact@master
-        with:
-           name: Depcheck report
-           path: ${{github.workspace}}/reports
+#       - name: Preparing Software Composition Analysis Results
+#         uses: actions/upload-artifact@master
+#         with:
+#            name: Depcheck report
+#            path: ${{github.workspace}}/reports
            
-      - name: Finalizing Software Composition Analysis Results
-        run: |
-          cd reports
-          curl --upload-file ./dependency-check-report.html https://transfer.sh/dependency-check-report.html
+#       - name: Finalizing Software Composition Analysis Results
+#         run: |
+#           cd reports
+#           curl --upload-file ./dependency-check-report.html https://transfer.sh/dependency-check-report.html
 
-      - name: Performing SAST using Sonar Cloud
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SC_TOKEN }}
-        with:
-          args: >
-            -Dsonar.organization=lucideus
-            -Dsonar.projectKey=rubaljain_UnSAFE_Bank
-            -Dsonar.c.file.suffixes=-
-            -Dsonar.cpp.file.suffixes=-
-            -Dsonar.objc.file.suffixes=-
+#       - name: Performing SAST using Sonar Cloud
+#         uses: sonarsource/sonarcloud-github-action@master
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}
+#           SONAR_TOKEN: ${{ secrets.SC_TOKEN }}
+#         with:
+#           args: >
+#             -Dsonar.organization=lucideus
+#             -Dsonar.projectKey=rubaljain_UnSAFE_Bank
+#             -Dsonar.c.file.suffixes=-
+#             -Dsonar.cpp.file.suffixes=-
+#             -Dsonar.objc.file.suffixes=-
 
-      - name: Preparing SAST Results
-        run: |
-          npm install -g sonar-report 
-          cd /usr/local/lib/node_modules/sonar-report/
-          rm index.js
-          cp /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/.github/index.js /usr/local/lib/node_modules/sonar-report/
-          npm install
-          cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
-          sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > sonarcloud.html
-          curl --upload-file sonarcloud.html https://transfer.sh/sonarcloud.html
+#       - name: Preparing SAST Results
+#         run: |
+#           npm install -g sonar-report 
+#           cd /usr/local/lib/node_modules/sonar-report/
+#           rm index.js
+#           cp /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/.github/index.js /usr/local/lib/node_modules/sonar-report/
+#           npm install
+#           cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
+#           sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > sonarcloud.html
+#           curl --upload-file sonarcloud.html https://transfer.sh/sonarcloud.html
           
       - name: Performing DAST using ZAP
         uses: zaproxy/action-baseline@v0.4.0
@@ -127,9 +127,8 @@ jobs:
           fail_action: false
           token: ${{secrets.GITHUB_TOKEN}}
           issue_title: ZAP Scan
+          cmd_options: '-x report_xml.xml'
 
       - name: Preparing DAST Results
         run: |
-          curl --upload-file ./report_html.html https://transfer.sh/report_html.html
-          curl --upload-file ./report_json.json https://transfer.sh/report_json.json
-          curl --upload-file ./report_md.md https://transfer.sh/report_md.md          
+          curl --upload-file ./report_xml.xml https://transfer.sh/report_html.xml      
