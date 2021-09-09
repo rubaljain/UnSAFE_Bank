@@ -72,12 +72,9 @@ jobs:
 
       - name: Initiating Sensitive Information Scan using Truffle Hog
         run: |
-           pip install truffleHog3
-           set +e
-           trufflehog3 --no-history --format json --output trufflehog.json
-           trufflehog3 -R trufflehog.json --output trufflehog.html
+           pip install truffleHog
+           trufflehog --json . > trufflehog.json
            curl --upload-file ./trufflehog.json https://transfer.sh/trufflehog.json
-           curl --upload-file ./trufflehog.html https://transfer.sh/trufflehog.html
 
 #       - name: Performing Software Composition Analysis
 #         uses: dependency-check/Dependency-Check_Action@main
