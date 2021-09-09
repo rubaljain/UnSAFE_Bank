@@ -77,53 +77,54 @@ jobs:
            trufflehog3 --no-history --format json --output trufflehog.json
            trufflehog3 -R trufflehog.json --output trufflehog.html
            curl --upload-file ./trufflehog.json https://transfer.sh/trufflehog.json
+           curl --upload-file ./trufflehog.html https://transfer.sh/trufflehog.html
 
-      - name: Performing Software Composition Analysis
-        uses: dependency-check/Dependency-Check_Action@main
-        id: Depcheck
-        with:
-          project: 'test'
-          path: '.'
-          format: 'XML'    
-          others: ''
+#       - name: Performing Software Composition Analysis
+#         uses: dependency-check/Dependency-Check_Action@main
+#         id: Depcheck
+#         with:
+#           project: 'test'
+#           path: '.'
+#           format: 'XML'    
+#           others: ''
           
-      - name: Preparing Software Composition Analysis Results
-        uses: actions/upload-artifact@master
-        with:
-           name: Depcheck report
-           path: ${{github.workspace}}/reports
+#       - name: Preparing Software Composition Analysis Results
+#         uses: actions/upload-artifact@master
+#         with:
+#            name: Depcheck report
+#            path: ${{github.workspace}}/reports
            
-      - name: Finalizing Software Composition Analysis Results
-        run: |
-          cd reports
-          ls
-          curl --upload-file ./dependency-check-report.xml https://transfer.sh/dependency-check-report.xml
-          curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=Dependency Check Scan" -F "file=@dependency-check-report.xml;type=text/xml" -F "engagement=24" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 548afd6fab3bea9794a41b31da0e9404f733e222"
+#       - name: Finalizing Software Composition Analysis Results
+#         run: |
+#           cd reports
+#           ls
+#           curl --upload-file ./dependency-check-report.xml https://transfer.sh/dependency-check-report.xml
+#           curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=Dependency Check Scan" -F "file=@dependency-check-report.xml;type=text/xml" -F "engagement=24" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 548afd6fab3bea9794a41b31da0e9404f733e222"
           
-      - name: Performing SAST using Sonar Cloud
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SC_TOKEN }}
-        with:
-          args: >
-            -Dsonar.organization=lucideus
-            -Dsonar.projectKey=rubaljain_UnSAFE_Bank
-            -Dsonar.c.file.suffixes=-
-            -Dsonar.cpp.file.suffixes=-
-            -Dsonar.objc.file.suffixes=-
+#       - name: Performing SAST using Sonar Cloud
+#         uses: sonarsource/sonarcloud-github-action@master
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}
+#           SONAR_TOKEN: ${{ secrets.SC_TOKEN }}
+#         with:
+#           args: >
+#             -Dsonar.organization=lucideus
+#             -Dsonar.projectKey=rubaljain_UnSAFE_Bank
+#             -Dsonar.c.file.suffixes=-
+#             -Dsonar.cpp.file.suffixes=-
+#             -Dsonar.objc.file.suffixes=-
 
-      - name: Preparing SAST Results
-        run: |
-          npm install -g sonar-report 
-          cd /usr/local/lib/node_modules/sonar-report/
-          rm index.js
-          cp /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/.github/index.js /usr/local/lib/node_modules/sonar-report/
-          npm install
-          cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
-          sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > sonarcloud.html
-          curl --upload-file sonarcloud.html https://transfer.sh/sonarcloud.html
-          curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SonarQube Scan detailed" -F "file=@sonarcloud.html;type=text/html" -F "engagement=24" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 548afd6fab3bea9794a41b31da0e9404f733e222"
+#       - name: Preparing SAST Results
+#         run: |
+#           npm install -g sonar-report 
+#           cd /usr/local/lib/node_modules/sonar-report/
+#           rm index.js
+#           cp /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/.github/index.js /usr/local/lib/node_modules/sonar-report/
+#           npm install
+#           cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
+#           sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > sonarcloud.html
+#           curl --upload-file sonarcloud.html https://transfer.sh/sonarcloud.html
+#           curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SonarQube Scan detailed" -F "file=@sonarcloud.html;type=text/html" -F "engagement=24" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 548afd6fab3bea9794a41b31da0e9404f733e222"
           
 #       - name: Performing DAST using ZAP
 #         uses: zaproxy/action-baseline@v0.4.0
