@@ -98,8 +98,8 @@ jobs:
           cd reports
           ls
           curl --upload-file ./dependency-check-report.xml https://transfer.sh/dependency-check-report.xml
-          curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=Dependency Check Scan" -F "file=@dependency-check-report.xml;type=text/xml" -F "engagement=24” -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 548afd6fab3bea9794a41b31da0e9404f733e222"
-
+          curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=Dependency Check Scan" -F "file=@dependency-check-report.xml;type=text/xml" -F "engagement=24" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 548afd6fab3bea9794a41b31da0e9404f733e222"
+          
       - name: Performing SAST using Sonar Cloud
         uses: sonarsource/sonarcloud-github-action@master
         env:
@@ -123,7 +123,7 @@ jobs:
           cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
           sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > sonarcloud.html
           curl --upload-file sonarcloud.html https://transfer.sh/sonarcloud.html
-          curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SonarQube Scan detailed" -F "file=@sonarcloud-2.html;type=text/html" -F "engagement=24" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 548afd6fab3bea9794a41b31da0e9404f733e222"
+          curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SonarQube Scan detailed" -F "file=@sonarcloud.html;type=text/html" -F "engagement=24" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 548afd6fab3bea9794a41b31da0e9404f733e222"
           
 #       - name: Performing DAST using ZAP
 #         uses: zaproxy/action-baseline@v0.4.0
