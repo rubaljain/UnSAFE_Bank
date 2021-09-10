@@ -205,4 +205,12 @@ jobs:
           cd Backend
           docker-compose up -d
           docker-compose ps
-          
+      
+      - name: Running Dockle
+        uses: hands-lab/dockle-action@v1
+        with:
+          image: backend_php_1
+      
+      - name: Check Resullts
+        run: |
+          ls
