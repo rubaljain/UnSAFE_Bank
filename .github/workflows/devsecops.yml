@@ -199,29 +199,43 @@ jobs:
       - name: Checking out repository
         uses: actions/checkout@v2
         
-      - name: Build the Containers
+      - name: Building Application Containers
         run: |
-          ls
           cd Backend
           docker-compose up -d
-          docker-compose ps
       
-#       - name: Running Dockle
-#         uses: hands-lab/dockle-action@v1
-#         with:
-#           image: backend_php_1
-      
-#       - name: Check Resullts
-#         run: |
-#           ls
-      
-      - name: Run Dockle Again with ERZZ
+      - name: Testing Backend Container
         uses: erzz/dockle-action@v1.0.0
         with:
           image: backend_php
           report-format: sarif
-          report-name: super-report
+          report-name: backend_php
 
-      - name: Check Resullts
+      - name: Testing Frontend Container
+        uses: erzz/dockle-action@v1.0.0
+        with:
+          image: backend_web
+          report-format: sarif
+          report-name: backend_web
+          
+      - name: Testing Web Server Container
+        uses: erzz/dockle-action@v1.0.0
+        with:
+          image: backend_server
+          report-format: sarif
+          report-name: backend_server
+
+      - name: Testing Database Container
+        uses: erzz/dockle-action@v1.0.0
+        with:
+          image: backend_db
+          report-format: sarif
+          report-name: backend_db
+
+      - name: Preparing Results
         run: |
-          ls
+          curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_php.sarif" -F "engagement=25" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 17c1ee70ae82a45918e277636f1193f1acfe6c35"
+          curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_server.sarif" -F "engagement=25" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 17c1ee70ae82a45918e277636f1193f1acfe6c35"
+          curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_db.sarif" -F "engagement=25" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 17c1ee70ae82a45918e277636f1193f1acfe6c35"
+          curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_web.sarif" -F "engagement=25" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 17c1ee70ae82a45918e277636f1193f1acfe6c35"
+
