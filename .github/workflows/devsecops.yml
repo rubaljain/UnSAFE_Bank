@@ -205,4 +205,5 @@ jobs:
           cd Backend
           service docker status
           docker-compose up -d
+          docker image ls
           
