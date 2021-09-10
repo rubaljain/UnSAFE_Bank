@@ -203,7 +203,6 @@ jobs:
         run: |
           ls
           cd Backend
-          service docker status
-          docker image build
-          docker image ls
+          docker-compose up -d
+          docker-compose ps
           
