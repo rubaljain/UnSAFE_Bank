@@ -189,7 +189,7 @@ jobs:
 #         run: |
 #           curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=ZAP Scan" -F "file=@report_xml.xml;type=text/xml" -F "engagement=24" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 548afd6fab3bea9794a41b31da0e9404f733e222"
 
-  Container Vulnerability Scanning:
+  Container_Vulnerability_Scanning:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
       
