@@ -216,7 +216,7 @@ jobs:
 #           ls
       
       - name: Run Dockle Again with ERZZ
-        uses: erzz/dockle-action@v1
+        uses: erzz/dockle-action@v1.0.0
         with:
           image: backend_php_1
           report-format: sarif
