@@ -206,11 +206,25 @@ jobs:
           docker-compose up -d
           docker-compose ps
       
-      - name: Running Dockle
-        uses: hands-lab/dockle-action@v1
+#       - name: Running Dockle
+#         uses: hands-lab/dockle-action@v1
+#         with:
+#           image: backend_php_1
+      
+#       - name: Check Resullts
+#         run: |
+#           ls
+      
+      - name: Run Dockle Again with ERZZ
+        uses: erzz/dockle-action@v1
         with:
           image: backend_php_1
-      
+          report-format: sarif
+          report-name: super-report
+          failure-threshold: fatal
+          exit-code: 1
+          dockle-version: 0.3.16
+
       - name: Check Resullts
         run: |
           ls
