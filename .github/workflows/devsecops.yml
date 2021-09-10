@@ -218,12 +218,9 @@ jobs:
       - name: Run Dockle Again with ERZZ
         uses: erzz/dockle-action@v1.0.0
         with:
-          image: backend_php_1
+          image: backend_php
           report-format: sarif
           report-name: super-report
-          failure-threshold: fatal
-          exit-code: 1
-          dockle-version: 0.3.16
 
       - name: Check Resullts
         run: |
