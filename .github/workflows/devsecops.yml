@@ -105,6 +105,8 @@ jobs:
         uses: docker://vimeo/psalm-github-actions
         with:
           security_analysis: true
+          composer_require_dev: true
+          composer_ignore_platform_reqs: true
           report_file: results.sarif
           
       - name: Install PHP_CodeSniffer
