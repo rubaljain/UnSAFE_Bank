@@ -204,18 +204,46 @@ jobs:
           cd Backend
           docker-compose up -d
         
-      - name: Run Trivy vulnerability scanner
+      - name: Scanning PHP Container for Vulnerability
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: backend_php
           format: 'template'
           template: '@/contrib/sarif.tpl'
-          output: 'trivy-results.sarif'
+          output: 'backend_php.sarif'
+      
+      - name: Scanning Frontend Container for Vulnerability
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: backend_web
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'backend_web.sarif'
+      
+      - name: Scanning Web Server Container for Vulnerability
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: backend_server
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'backend_server.sarif'
           
-      - name: Building Application Containers
+      - name: Scanning Database Container for Vulnerability
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: backend_db
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'backend_db.sarif'
+          
+      - name: Finalizing Vulnerability Assessment Results
         run: |
-          cd Backend
-          docker-compose up -d
+          ls
+          curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_php.sarif" -F "engagement=25" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 17c1ee70ae82a45918e277636f1193f1acfe6c35"
+          curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_server.sarif" -F "engagement=25" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 17c1ee70ae82a45918e277636f1193f1acfe6c35"
+          curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_db.sarif" -F "engagement=25" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 17c1ee70ae82a45918e277636f1193f1acfe6c35"
+          curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_web.sarif" -F "engagement=25" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 17c1ee70ae82a45918e277636f1193f1acfe6c35"
+          
         
 #   Compliance_as_Code:
 #     # The type of runner that the job will run on
