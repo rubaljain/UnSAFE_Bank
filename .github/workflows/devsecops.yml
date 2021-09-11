@@ -60,7 +60,7 @@ jobs:
            set +e
            trufflehog --json . > trufflehog.json
            curl --upload-file ./trufflehog.json https://transfer.sh/trufflehog.json
-           curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=Trufflehog Scan" -F "file=@trufflehog.json;type=application/json" -F "engagement=25" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 17c1ee70ae82a45918e277636f1193f1acfe6c35"
+           curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=Trufflehog Scan" -F "file=@trufflehog.json;type=application/json" -F "engagement=26" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 17c1ee70ae82a45918e277636f1193f1acfe6c35"
       
       - name: SemGrep
         uses: returntocorp/semgrep-action@v1
@@ -73,7 +73,7 @@ jobs:
           
       - name: Finalizing Semgre Results
         run: |
-          curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@semgrep.sarif" -F "engagement=25" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 17c1ee70ae82a45918e277636f1193f1acfe6c35"
+          curl -X POST "https://demo.defectdojo.org/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@semgrep.sarif" -F "engagement=26" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token 17c1ee70ae82a45918e277636f1193f1acfe6c35"
 
           
 #   Software_Composition_Analysis:
