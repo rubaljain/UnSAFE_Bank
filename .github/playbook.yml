@@ -1,0 +1,39 @@
+- hosts: localhost
+  vars:
+      digital_ocean_token: "e22f514c894cfb810f343260e1a700080346ae57b1fd58dfbe67b29c86eb291d"
+      droplet_size: s-2vcpu-2gb
+      droplet_region: blr1
+      droplet_image: docker-20-04
+  tasks:
+
+    - name: "Add Public SSH key to digitalocean account"
+      digital_ocean_sshkey:
+        name: "UnSAFE"
+        oauth_token: "{{ digital_ocean_token }}"
+        ssh_pub_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCmvAkgnYCvTE0uCZCJUyQHKYVTtLGzXZUr5/rW5KmAUqywojefyKj2yXSFHnbcVKdD6bxA6+1/oKRc9GglHaJrlufV60+6Ka+nUAzOim2jec9VlAgrCo2DCHqYxxdhesl4hoaY4l2yo0oScTNeitoTV8t4gakgd8uKsjluSY7CkVz143pzmIVVJJd2QnYfCHmCiwnWogtwY6Oow3k9t0bCI/A4UUE07ho2k292oGWdZEdzS0MxfOH5GKFr9wTPMhOEMcRHRqOsqxzn5D+2TXF0rz0kGPjPy63Ld5FyPW9ZlRF3CE9X0T9KlQNwZ3ssVO10xbPp2U9fw2QtETA7fkuq052fkSmDCxrDQX1EgxXQYisvWC5Ad4fpRJrEv9lDd6rgp+HQi+mgxTrK+bHRI5IYfMpwOkjueIzLg7016rTr0qSHAc+OvXF83jQuJQ5nlSn7v7NQPXvRHvTx3FPJVp4cYo4pTnXIGNfEJba8pcjrUod9xvTVnYmekiSeCFL1Xhs= lucideus@Rubals-MBP"
+        state: present
+      register: sshkey_result
+
+    - name: "Create a new dockerized droplet assigning the key"
+      digital_ocean_droplet:
+        name: "bootcamp"
+        oauth_token: "{{ digital_ocean_token }}"
+        size: "{{ droplet_size }}"
+        region: "{{ droplet_region }}"
+        image: "{{ droplet_image }}"
+        wait_timeout: 600
+        unique_name: yes
+        ssh_keys: ["{{ sshkey_result.data.ssh_key.id }}"]
+        state: present
+#       with_inventory_hostnames:
+#         - web
+      register: droplet_result
+    
+    - debug:
+        msg: "IP is {{ droplet_result.data.ip_address }}"
+
+    - name: save ip and hostname to local hosts file /etc/hosts
+      become: yes
+      lineinfile:
+        path: /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/data.txt
+        line: "{{ droplet_result.data.ip_address }}"
