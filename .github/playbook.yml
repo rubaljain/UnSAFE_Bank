@@ -1,6 +1,6 @@
 - hosts: localhost
   vars:
-      digital_ocean_token: "aeab6c533a1df15ab19c5c848812b3112530c5652e016037461a3af81a80b118"
+      digital_ocean_token: "d6b0863504e459a624477a6b3423d537940347fdbc7c812ba93569c082e1bbeb"
       droplet_size: s-2vcpu-2gb
       droplet_region: blr1
       droplet_image: docker-20-04
