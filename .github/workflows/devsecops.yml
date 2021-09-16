@@ -156,7 +156,7 @@ jobs:
       - name: Performing DAST using ZAP
         uses: zaproxy/action-baseline@v0.4.0
         with:
-          target: "http://143.244.131.188:3000"
+          target: format('http://{0}:3000', secrets.SSH_HOST)
           fail_action: false
           token: ${{secrets.GITHUB_TOKEN}}
           issue_title: ZAP Scan
