@@ -5,7 +5,7 @@ name: DevSecOps
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
-#  push:
+  push:
 #    branches: [ master ]
 #   pull_request:
 #     branches: [ master ]
@@ -156,7 +156,7 @@ jobs:
       - name: Performing DAST using ZAP
         uses: zaproxy/action-baseline@v0.4.0
         with:
-          target: format('https://{0}:3000', secrets.SSH_HOST)
+          target: "http://143.244.131.188:3000"
           fail_action: false
           token: ${{secrets.GITHUB_TOKEN}}
           issue_title: ZAP Scan
