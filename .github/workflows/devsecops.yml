@@ -152,11 +152,14 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checking out repository
         uses: actions/checkout@v2
+      
+      - name: UnSAFE Bank Application URL
+        run: echo "Application URL  http://${{ env.IP_ADDRESS }}:3000"
         
       - name: Performing DAST using ZAP
         uses: zaproxy/action-baseline@v0.4.0
         with:
-          target: format('http://{0}:3000', secrets.SSH_HOST)
+          target: "http://${{ secrets.SSH_HOST }}:3000"
           fail_action: false
           token: ${{secrets.GITHUB_TOKEN}}
           issue_title: ZAP Scan
