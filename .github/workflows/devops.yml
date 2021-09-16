@@ -27,7 +27,7 @@ jobs:
         uses: dawidd6/action-ansible-playbook@v2.5.0
         with:
           # Ansible playbook filepath
-          playbook: '.github/workflows/playbook.yml' 
+          playbook: '.github/playbook.yml' 
           
       - name: Save Droplet IP Address in Environment Variable
         run: |
@@ -73,7 +73,7 @@ jobs:
             sudo chmod +x /usr/bin/chromedriver
             
       - name: Run Login Test
-        run: python3 .github/workflows/unsafe_tests.py ${{env.IP_ADDRESS}}
+        run: python3 .github/unsafe_tests.py ${{env.IP_ADDRESS}}
         
       - name: UnSAFE Bank Application URL
         run: echo "Application URL  http://${{ env.IP_ADDRESS }}:3000"
