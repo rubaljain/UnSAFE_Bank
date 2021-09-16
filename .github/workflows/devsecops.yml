@@ -43,7 +43,7 @@ jobs:
           pwd
           ls
           curl --upload-file ./codacy.sarif https://transfer.sh/codacy.sarif
-          curl -X POST "http://143.244.131.188:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@codacy.sarif" -F "engagement=1" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@codacy.sarif" -F "engagement=1" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
 
   Sensitive_Information_Scan:
     # The type of runner that the job will run on
@@ -61,7 +61,7 @@ jobs:
            set +e
            trufflehog --json . > trufflehog.json
            curl --upload-file ./trufflehog.json https://transfer.sh/trufflehog.json
-           curl -X POST "http://143.244.131.188:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=Trufflehog Scan" -F "file=@trufflehog.json;type=application/json" -F "engagement=2" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+           curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=Trufflehog Scan" -F "file=@trufflehog.json;type=application/json" -F "engagement=2" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
       
       - name: SemGrep
         uses: returntocorp/semgrep-action@v1
@@ -74,7 +74,7 @@ jobs:
           
       - name: Finalizing Semgre Results
         run: |
-          curl -X POST "http://143.244.131.188:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@semgrep.sarif" -F "engagement=2" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@semgrep.sarif" -F "engagement=2" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
           
   Software_Composition_Analysis:
     # The type of runner that the job will run on
@@ -106,7 +106,7 @@ jobs:
           cd reports
           ls
           curl --upload-file ./dependency-check-report.xml https://transfer.sh/dependency-check-report.xml
-          curl -X POST "http://143.244.131.188:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=Dependency Check Scan" -F "file=@dependency-check-report.xml;type=text/xml" -F "engagement=3" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=Dependency Check Scan" -F "file=@dependency-check-report.xml;type=text/xml" -F "engagement=3" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
          
   Static_Appliation_Security_Testing:
     # The type of runner that the job will run on
@@ -141,7 +141,7 @@ jobs:
           cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
           sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > sonarcloud.html
           curl --upload-file sonarcloud.html https://transfer.sh/sonarcloud.html
-          curl -X POST "http://143.244.131.188:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SonarQube Scan detailed" -F "file=@sonarcloud.html;type=text/html" -F "engagement=4" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SonarQube Scan detailed" -F "file=@sonarcloud.html;type=text/html" -F "engagement=4" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
 
   Dynamic_Application_Security_Testing:
     # The type of runner that the job will run on
@@ -152,9 +152,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checking out repository
         uses: actions/checkout@v2
-      
-      - name: UnSAFE Bank Application URL
-        run: echo "Application URL  http://${{ env.IP_ADDRESS }}:3000"
         
       - name: Performing DAST using ZAP
         uses: zaproxy/action-baseline@v0.4.0
@@ -167,7 +164,7 @@ jobs:
 
       - name: Preparing DAST Results
         run: |
-          curl -X POST "http://143.244.131.188:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=ZAP Scan" -F "file=@report_xml.xml;type=text/xml" -F "engagement=5" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=ZAP Scan" -F "file=@report_xml.xml;type=text/xml" -F "engagement=5" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
 
   Container_Vulnerability_Scanning:
     # The type of runner that the job will run on
@@ -219,10 +216,10 @@ jobs:
       - name: Finalizing Vulnerability Assessment Results
         run: |
           ls
-          curl -X POST "http://143.244.131.188:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_php.sarif" -F "engagement=6" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
-          curl -X POST "http://143.244.131.188:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_server.sarif" -F "engagement=6" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
-          curl -X POST "http://143.244.131.188:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_db.sarif" -F "engagement=6" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
-          curl -X POST "http://143.244.131.188:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_web.sarif" -F "engagement=6" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"          
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_php.sarif" -F "engagement=6" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_server.sarif" -F "engagement=6" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_db.sarif" -F "engagement=6" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_web.sarif" -F "engagement=6" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"          
         
   Compliance_as_Code:
     # The type of runner that the job will run on
@@ -269,8 +266,8 @@ jobs:
 
       - name: Preparing Compliance Results
         run: |
-          curl -X POST "http://143.244.131.188:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_php.sarif" -F "engagement=7" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
-          curl -X POST "http://143.244.131.188:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_server.sarif" -F "engagement=7" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
-          curl -X POST "http://143.244.131.188:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_db.sarif" -F "engagement=7" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
-          curl -X POST "http://143.244.131.188:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_web.sarif" -F "engagement=7" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_php.sarif" -F "engagement=7" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_server.sarif" -F "engagement=7" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_db.sarif" -F "engagement=7" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_web.sarif" -F "engagement=7" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
 
