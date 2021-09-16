@@ -5,7 +5,7 @@ name: DevSecOps
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
-  push:
+#  push:
 #    branches: [ master ]
 #   pull_request:
 #     branches: [ master ]
@@ -38,236 +38,236 @@ jobs:
           # This will handover control about PR rejection to the GitHub side
           max-allowed-issues: 2147483647
           
-#       - name: Preparing Automated Code Review Results
-#         run: |
-#           pwd
-#           ls
-#           curl --upload-file ./codacy.sarif https://transfer.sh/codacy.sarif
-#           curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@codacy.sarif" -F "engagement=1" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+      - name: Preparing Automated Code Review Results
+        run: |
+          pwd
+          ls
+          curl --upload-file ./codacy.sarif https://transfer.sh/codacy.sarif
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@codacy.sarif" -F "engagement=1" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
 
-#   Sensitive_Information_Scan:
-#     # The type of runner that the job will run on
-#     runs-on: ubuntu-latest
+  Sensitive_Information_Scan:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
       
-#     # Steps represent a sequence of tasks that will be executed as part of the job
-#     steps:
-#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-#       - name: Checking out repository
-#         uses: actions/checkout@v2
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checking out repository
+        uses: actions/checkout@v2
 
-#       - name: Initiating Sensitive Information Scan using Truffle Hog
-#         run: |
-#            pip install truffleHog
-#            set +e
-#            trufflehog --json . > trufflehog.json
-#            curl --upload-file ./trufflehog.json https://transfer.sh/trufflehog.json
-#            curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=Trufflehog Scan" -F "file=@trufflehog.json;type=application/json" -F "engagement=2" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+      - name: Initiating Sensitive Information Scan using Truffle Hog
+        run: |
+           pip install truffleHog
+           set +e
+           trufflehog --json . > trufflehog.json
+           curl --upload-file ./trufflehog.json https://transfer.sh/trufflehog.json
+           curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=Trufflehog Scan" -F "file=@trufflehog.json;type=application/json" -F "engagement=2" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
         
-#       - name: SemGrep
-#         uses: returntocorp/semgrep-action@v1
-#         with:
-#           config: >- # more at semgrep.dev/explore
-#             p/security-audit
-#             p/secrets
-#           auditOn: push
-#           generateSarif: "1"
+      - name: SemGrep
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: >- # more at semgrep.dev/explore
+            p/security-audit
+            p/secrets
+          auditOn: push
+          generateSarif: "1"
           
-#       - name: Finalizing Semgre Results
-#         run: |
-#           curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@semgrep.sarif" -F "engagement=2" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+      - name: Finalizing Semgre Results
+        run: |
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@semgrep.sarif" -F "engagement=2" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
           
-#   Software_Composition_Analysis:
-#     # The type of runner that the job will run on
-#     runs-on: ubuntu-latest
+  Software_Composition_Analysis:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
       
-#     # Steps represent a sequence of tasks that will be executed as part of the job
-#     steps:
-#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-#       - name: Checking out repository
-#         uses: actions/checkout@v2
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checking out repository
+        uses: actions/checkout@v2
         
-#       - name: Performing Software Composition Analysis
-#         uses: dependency-check/Dependency-Check_Action@main
-#         id: Depcheck
-#         with:
-#           project: 'test'
-#           path: '.'
-#           format: 'XML'    
-#           others: ''
+      - name: Performing Software Composition Analysis
+        uses: dependency-check/Dependency-Check_Action@main
+        id: Depcheck
+        with:
+          project: 'test'
+          path: '.'
+          format: 'XML'    
+          others: ''
           
-#       - name: Preparing Software Composition Analysis Results
-#         uses: actions/upload-artifact@master
-#         with:
-#            name: Depcheck report
-#            path: ${{github.workspace}}/reports
+      - name: Preparing Software Composition Analysis Results
+        uses: actions/upload-artifact@master
+        with:
+           name: Depcheck report
+           path: ${{github.workspace}}/reports
            
-#       - name: Finalizing Software Composition Analysis Results
-#         run: |
-#           cd reports
-#           ls
-#           curl --upload-file ./dependency-check-report.xml https://transfer.sh/dependency-check-report.xml
-#           curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=Dependency Check Scan" -F "file=@dependency-check-report.xml;type=text/xml" -F "engagement=3" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+      - name: Finalizing Software Composition Analysis Results
+        run: |
+          cd reports
+          ls
+          curl --upload-file ./dependency-check-report.xml https://transfer.sh/dependency-check-report.xml
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=Dependency Check Scan" -F "file=@dependency-check-report.xml;type=text/xml" -F "engagement=3" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
          
-#   Static_Appliation_Security_Testing:
-#     # The type of runner that the job will run on
-#     runs-on: ubuntu-latest
+  Static_Appliation_Security_Testing:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
       
-#     # Steps represent a sequence of tasks that will be executed as part of the job
-#     steps:
-#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-#       - name: Checking out repository
-#         uses: actions/checkout@v2
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checking out repository
+        uses: actions/checkout@v2
         
-#       - name: Performing SAST using Sonar Cloud
-#         uses: sonarsource/sonarcloud-github-action@master
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}
-#           SONAR_TOKEN: ${{ secrets.SC_TOKEN }}
-#         with:
-#           args: >
-#             -Dsonar.organization=lucideus
-#             -Dsonar.projectKey=rubaljain_UnSAFE_Bank
-#             -Dsonar.c.file.suffixes=-
-#             -Dsonar.cpp.file.suffixes=-
-#             -Dsonar.objc.file.suffixes=-
+      - name: Performing SAST using Sonar Cloud
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SC_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=lucideus
+            -Dsonar.projectKey=rubaljain_UnSAFE_Bank
+            -Dsonar.c.file.suffixes=-
+            -Dsonar.cpp.file.suffixes=-
+            -Dsonar.objc.file.suffixes=-
 
-#       - name: Preparing SAST Results
-#         run: |
-#           npm install -g sonar-report 
-#           cd /usr/local/lib/node_modules/sonar-report/
-#           rm index.js
-#           cp /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/.github/index.js /usr/local/lib/node_modules/sonar-report/
-#           npm install
-#           cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
-#           sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > sonarcloud.html
-#           curl --upload-file sonarcloud.html https://transfer.sh/sonarcloud.html
-#           curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SonarQube Scan detailed" -F "file=@sonarcloud.html;type=text/html" -F "engagement=4" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+      - name: Preparing SAST Results
+        run: |
+          npm install -g sonar-report 
+          cd /usr/local/lib/node_modules/sonar-report/
+          rm index.js
+          cp /home/runner/work/UnSAFE_Bank/UnSAFE_Bank/.github/index.js /usr/local/lib/node_modules/sonar-report/
+          npm install
+          cd /home/runner/work/UnSAFE_Bank/UnSAFE_Bank
+          sonar-report --sonarurl="https://sonarcloud.io" --project="rubaljain_UnSAFE_Bank" --application="UnSAFE_Bank"  --sonarorganization="lucideus" --sonarcomponent="rubaljain_UnSAFE_Bank" > sonarcloud.html
+          curl --upload-file sonarcloud.html https://transfer.sh/sonarcloud.html
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SonarQube Scan detailed" -F "file=@sonarcloud.html;type=text/html" -F "engagement=4" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
 
-#   Dynamic_Application_Security_Testing:
-#     # The type of runner that the job will run on
-#     runs-on: ubuntu-latest
+  Dynamic_Application_Security_Testing:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
       
-#     # Steps represent a sequence of tasks that will be executed as part of the job
-#     steps:
-#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-#       - name: Checking out repository
-#         uses: actions/checkout@v2
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checking out repository
+        uses: actions/checkout@v2
         
-#       - name: Performing DAST using ZAP
-#         uses: zaproxy/action-baseline@v0.4.0
-#         with:
-#           target: "http://${{ secrets.SSH_HOST }}:3000"
-#           fail_action: false
-#           token: ${{secrets.GITHUB_TOKEN}}
-#           issue_title: ZAP Scan
-#           cmd_options: '-x report_xml.xml'
+      - name: Performing DAST using ZAP
+        uses: zaproxy/action-baseline@v0.4.0
+        with:
+          target: "http://${{ secrets.SSH_HOST }}:3000"
+          fail_action: false
+          token: ${{secrets.GITHUB_TOKEN}}
+          issue_title: ZAP Scan
+          cmd_options: '-x report_xml.xml'
 
-#       - name: Preparing DAST Results
-#         run: |
-#           curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=ZAP Scan" -F "file=@report_xml.xml;type=text/xml" -F "engagement=5" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+      - name: Preparing DAST Results
+        run: |
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=ZAP Scan" -F "file=@report_xml.xml;type=text/xml" -F "engagement=5" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
 
-#   Container_Vulnerability_Scanning:
-#     # The type of runner that the job will run on
-#     runs-on: ubuntu-latest
+  Container_Vulnerability_Scanning:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
       
-#     # Steps represent a sequence of tasks that will be executed as part of the job
-#     steps:
-#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-#       - name: Checking out repository
-#         uses: actions/checkout@v2
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checking out repository
+        uses: actions/checkout@v2
         
-#       - name: Building Application Containers
-#         run: |
-#           cd Backend
-#           docker-compose up -d
+      - name: Building Application Containers
+        run: |
+          cd Backend
+          docker-compose up -d
         
-#       - name: Scanning PHP Container for Vulnerability
-#         uses: aquasecurity/trivy-action@master
-#         with:
-#           image-ref: backend_php
-#           format: 'template'
-#           template: '@/contrib/sarif.tpl'
-#           output: 'backend_php.sarif'
+      - name: Scanning PHP Container for Vulnerability
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: backend_php
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'backend_php.sarif'
       
-#       - name: Scanning Frontend Container for Vulnerability
-#         uses: aquasecurity/trivy-action@master
-#         with:
-#           image-ref: backend_web
-#           format: 'template'
-#           template: '@/contrib/sarif.tpl'
-#           output: 'backend_web.sarif'
+      - name: Scanning Frontend Container for Vulnerability
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: backend_web
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'backend_web.sarif'
       
-#       - name: Scanning Web Server Container for Vulnerability
-#         uses: aquasecurity/trivy-action@master
-#         with:
-#           image-ref: backend_server
-#           format: 'template'
-#           template: '@/contrib/sarif.tpl'
-#           output: 'backend_server.sarif'
+      - name: Scanning Web Server Container for Vulnerability
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: backend_server
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'backend_server.sarif'
           
-#       - name: Scanning Database Container for Vulnerability
-#         uses: aquasecurity/trivy-action@master
-#         with:
-#           image-ref: backend_db
-#           format: 'template'
-#           template: '@/contrib/sarif.tpl'
-#           output: 'backend_db.sarif'
+      - name: Scanning Database Container for Vulnerability
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: backend_db
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'backend_db.sarif'
           
-#       - name: Finalizing Vulnerability Assessment Results
-#         run: |
-#           ls
-#           curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_php.sarif" -F "engagement=6" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
-#           curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_server.sarif" -F "engagement=6" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
-#           curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_db.sarif" -F "engagement=6" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
-#           curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_web.sarif" -F "engagement=6" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"          
+      - name: Finalizing Vulnerability Assessment Results
+        run: |
+          ls
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_php.sarif" -F "engagement=6" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_server.sarif" -F "engagement=6" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_db.sarif" -F "engagement=6" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_web.sarif" -F "engagement=6" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"          
         
-#   Compliance_as_Code:
-#     # The type of runner that the job will run on
-#     runs-on: ubuntu-latest
+  Compliance_as_Code:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
       
-#     # Steps represent a sequence of tasks that will be executed as part of the job
-#     steps:
-#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-#       - name: Checking out repository
-#         uses: actions/checkout@v2
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checking out repository
+        uses: actions/checkout@v2
         
-#       - name: Building Application Containers
-#         run: |
-#           cd Backend
-#           docker-compose up -d
+      - name: Building Application Containers
+        run: |
+          cd Backend
+          docker-compose up -d
       
-#       - name: Testing Backend Container
-#         uses: erzz/dockle-action@v1.0.0
-#         with:
-#           image: backend_php
-#           report-format: sarif
-#           report-name: backend_php
+      - name: Testing Backend Container
+        uses: erzz/dockle-action@v1.0.0
+        with:
+          image: backend_php
+          report-format: sarif
+          report-name: backend_php
 
-#       - name: Testing Frontend Container
-#         uses: erzz/dockle-action@v1.0.0
-#         with:
-#           image: backend_web
-#           report-format: sarif
-#           report-name: backend_web
+      - name: Testing Frontend Container
+        uses: erzz/dockle-action@v1.0.0
+        with:
+          image: backend_web
+          report-format: sarif
+          report-name: backend_web
           
-#       - name: Testing Web Server Container
-#         uses: erzz/dockle-action@v1.0.0
-#         with:
-#           image: backend_server
-#           report-format: sarif
-#           report-name: backend_server
+      - name: Testing Web Server Container
+        uses: erzz/dockle-action@v1.0.0
+        with:
+          image: backend_server
+          report-format: sarif
+          report-name: backend_server
 
-#       - name: Testing Database Container
-#         uses: erzz/dockle-action@v1.0.0
-#         with:
-#           image: backend_db
-#           report-format: sarif
-#           report-name: backend_db
+      - name: Testing Database Container
+        uses: erzz/dockle-action@v1.0.0
+        with:
+          image: backend_db
+          report-format: sarif
+          report-name: backend_db
 
-#       - name: Preparing Compliance Results
-#         run: |
-#           curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_php.sarif" -F "engagement=7" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
-#           curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_server.sarif" -F "engagement=7" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
-#           curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_db.sarif" -F "engagement=7" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
-#           curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_web.sarif" -F "engagement=7" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+      - name: Preparing Compliance Results
+        run: |
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_php.sarif" -F "engagement=7" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_server.sarif" -F "engagement=7" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_db.sarif" -F "engagement=7" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
+          curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=SARIF" -F "file=@backend_web.sarif" -F "engagement=7" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
 
