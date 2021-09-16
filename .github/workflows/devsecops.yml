@@ -5,7 +5,7 @@ name: DevSecOps
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
-#  push:
+  push:
 #    branches: [ master ]
 #   pull_request:
 #     branches: [ master ]
@@ -62,9 +62,6 @@ jobs:
            trufflehog --json . > trufflehog.json
            curl --upload-file ./trufflehog.json https://transfer.sh/trufflehog.json
            curl -X POST "http://${{ secrets.DD_HOST }}:8080/api/v2/import-scan/" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "minimum_severity=Info" -F "active=true" -F "verified=false" -F "scan_type=Trufflehog Scan" -F "file=@trufflehog.json;type=application/json" -F "engagement=2" -F "close_old_findings=false" -F "push_to_jira=false" -H "Authorization: Token ${{ secrets.DD }}"
-      
-      - name: Initiating Sensitive Information Scan using Truffle Hog
-        run: rm trufflehog.json
         
       - name: SemGrep
         uses: returntocorp/semgrep-action@v1
