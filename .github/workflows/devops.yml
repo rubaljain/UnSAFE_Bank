@@ -74,3 +74,6 @@ jobs:
             
       - name: Run Login Test
         run: python3 .github/workflows/unsafe_tests.py ${{env.IP_ADDRESS}}
+        
+      - name: UnSAFE Bank Application URL
+        run: echo "Application URL  http://${{ env.IP_ADDRESS }}:3000"
